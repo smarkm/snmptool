@@ -9,6 +9,7 @@ type Device struct {
 	Desc      string `json:"description"`
 	Status    string `json:"status"`
 	Location  string
+	UpTime    string
 	Contract  string
 	Services  string
 	Name      string `json:"name"`
