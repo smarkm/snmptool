@@ -1,0 +1,1 @@
+go-bindata.exe  -o snmp\util\bin-data.go .\config\

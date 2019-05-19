@@ -15,6 +15,12 @@
 			"revisionTime": "2017-04-17T20:07:03Z"
 		},
 		{
+			"checksumSHA1": "QissvDLiegnH4zWMe3GFOLmH6DU=",
+			"path": "github.com/go-bindata/go-bindata",
+			"revision": "b97c95f139f1fc4b1f5c57a61068bdd25462594d",
+			"revisionTime": "2019-04-19T16:09:32Z"
+		},
+		{
 			"checksumSHA1": "v+cuxrB9eC9t+YodwIg1+ngBfPY=",
 			"path": "github.com/golang/mock/gomock",
 			"revision": "73dc87cad333b55a02058f4b3d872dbbafddc2b0",

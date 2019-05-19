@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/smarkm/snmptool/cmd"
-
+	_ "github.com/go-bindata/go-bindata"
 	"github.com/mitchellh/cli"
+	"github.com/smarkm/snmptool/cmd"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 		ErrorWriter: os.Stderr,
 	}
 
-	c := cli.NewCLI("snmp", "0.0.1")
+	c := cli.NewCLI("snmp", "pre-0.0.1")
 	c.Args = os.Args[1:]
 
 	c.Commands = map[string]cli.CommandFactory{

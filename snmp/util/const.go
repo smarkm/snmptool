@@ -4,3 +4,5 @@ package util
 const (
 	Unknow = "Unknow"
 )
+
+const ()
