@@ -1,4 +1,4 @@
-package snmp
+package cmd
 
 //this file will be deprected and remove [Remove]
 import (
