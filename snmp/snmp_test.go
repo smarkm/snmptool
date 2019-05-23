@@ -50,3 +50,11 @@ func TestHrProcessorLoad(t *testing.T) {
 		fmt.Println(item)
 	}
 }
+
+func TestGetIpAddrTable(t *testing.T) {
+	table, _ := GetIpAddrTable(local, communit)
+	for _, item := range table {
+		fmt.Println(item)
+		fmt.Println("")
+	}
+}

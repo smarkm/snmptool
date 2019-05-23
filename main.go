@@ -21,19 +21,22 @@ func main() {
 
 	c.Commands = map[string]cli.CommandFactory{
 		"sys": func() (cli.Command, error) {
-			return &snmp.System{UI: ui}, nil
+			return &cmd.System{UI: ui}, nil
 		},
 		"interface": func() (cli.Command, error) {
-			return &snmp.Interface{UI: ui}, nil
+			return &cmd.Interface{UI: ui}, nil
+		},
+		"ipaddr": func() (cli.Command, error) {
+			return &cmd.IPAddress{UI: ui}, nil
 		},
 		"lldp": func() (cli.Command, error) {
-			return &snmp.LLDP{UI: ui}, nil
+			return &cmd.LLDP{UI: ui}, nil
 		},
 		"lldprem": func() (cli.Command, error) {
-			return &snmp.LLDPRem{UI: ui}, nil
+			return &cmd.LLDPRem{UI: ui}, nil
 		},
 		"trapreceiver": func() (cli.Command, error) {
-			return &snmp.Receiver{UI: ui}, nil
+			return &cmd.Receiver{UI: ui}, nil
 		},
 	}
 

@@ -50,6 +50,29 @@ func GetTable(ip string, communit string, oids []string) (tableRows map[string](
 	return
 }
 
+//GetOne ip,comunity,oid string
+func GetOne(ip, community, oid string) (rs g.SnmpPDU, err error) {
+	s := NewSNMP(ip, community)
+	err = s.Connect()
+	if err != nil {
+		return
+	}
+	defer s.Conn.Close()
+
+	oids := []string{oid}
+	result, err := s.Get(oids) // Get() accepts up to g.MAX_OIDS
+	if err != nil {
+		return
+	}
+	for _, v := range result.Variables {
+		switch v.Name {
+		case oid:
+			rs = v
+		}
+	}
+	return
+}
+
 //GetSnmpString convert result 2 string
 func GetSnmpString(p g.SnmpPDU) (v string) {
 	switch p.Type {
