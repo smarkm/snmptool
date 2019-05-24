@@ -42,10 +42,10 @@ func (c *Receiver) Run(args []string) int {
 
 //Synopsis Synopsis information
 func (c *Receiver) Synopsis() string {
-	return "start an trap receiver"
+	return "Start an trap receiver"
 }
 
 //Help Help information
 func (c *Receiver) Help() string {
-	return "please use [ip] [port] to start an trap receiver"
+	return "Please use [ip] [port] to start an trap receiver"
 }

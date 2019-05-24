@@ -45,12 +45,12 @@ func (c *LLDP) Run(args []string) int {
 
 //Synopsis Synopsis information
 func (c *LLDP) Synopsis() string {
-	return "get lldp"
+	return "Show lldp information"
 }
 
 //Help Help information
 func (c *LLDP) Help() string {
-	return "get lldp"
+	return c.Synopsis()
 }
 
 //LLDPRem command
@@ -89,10 +89,10 @@ func (c *LLDPRem) Run(args []string) int {
 
 //Synopsis Synopsis information
 func (c *LLDPRem) Synopsis() string {
-	return "get lldp remote info"
+	return "Show lldp remote information"
 }
 
 //Help Help information
 func (c *LLDPRem) Help() string {
-	return "get lldp remote info"
+	return c.Synopsis()
 }

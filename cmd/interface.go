@@ -67,7 +67,7 @@ func (c *Interface) showAllPortsInformation(ip, community string) (err error) {
 
 //Synopsis Synopsis information
 func (c *Interface) Synopsis() string {
-	return "show interface brief base index"
+	return "Show interface brief base index"
 }
 
 //Help Help information
