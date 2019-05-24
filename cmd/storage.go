@@ -9,14 +9,14 @@ import (
 	"github.com/smarkm/snmptool/snmp"
 )
 
-//IPAddress command
-type IPAddress struct {
+//Storage command
+type Storage struct {
 	//UI extend
 	UI cli.Ui
 }
 
 //Run execute functioin
-func (c *IPAddress) Run(args []string) (rs int) {
+func (c *Storage) Run(args []string) (rs int) {
 	ln := len(args)
 	ip := ""
 	communit := "public"
@@ -30,13 +30,13 @@ func (c *IPAddress) Run(args []string) (rs int) {
 		c.UI.Output(c.Help())
 		return 0
 	}
-	items, err := snmp.GetIpAddrTable(ip, communit)
+	items, err := snmp.GetWinStorage(ip, communit)
 	if err != nil {
 		log.Println(err)
 	} else {
-		c.UI.Output("IP\t Netmask\t Index\t Descr")
+		c.UI.Output("Unit\t Size\t Used\t Desc")
 		for _, item := range items {
-			d := []string{item.IP, item.Netmask, strconv.Itoa(item.IfIndex), item.IfDesc}
+			d := []string{strconv.Itoa(item.Units), strconv.FormatInt(item.Size, 10), strconv.FormatInt(item.Used, 10), item.Descr}
 			c.UI.Output(strings.Join(d, "\t"))
 		}
 		c.UI.Output("Total: " + strconv.Itoa(len(items)) + " rows")
@@ -45,11 +45,11 @@ func (c *IPAddress) Run(args []string) (rs int) {
 }
 
 //Synopsis Synopsis information
-func (c *IPAddress) Synopsis() string {
-	return "Show the ip address table"
+func (c *Storage) Synopsis() string {
+	return "Show basic storate information"
 }
 
 //Help Help information
-func (c *IPAddress) Help() string {
+func (c *Storage) Help() string {
 	return c.Synopsis()
 }

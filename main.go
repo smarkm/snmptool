@@ -23,6 +23,9 @@ func main() {
 		"sys": func() (cli.Command, error) {
 			return &cmd.System{UI: ui}, nil
 		},
+		"storage": func() (cli.Command, error) {
+			return &cmd.Storage{UI: ui}, nil
+		},
 		"interface": func() (cli.Command, error) {
 			return &cmd.Interface{UI: ui}, nil
 		},
