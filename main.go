@@ -36,8 +36,6 @@ func main() {
 			return &cmd.OSPF{UI: ui}, nil
 		}, "ospfnbr": func() (cli.Command, error) {
 			return &cmd.OSPFNbr{UI: ui}, nil
-		}, "bgp": func() (cli.Command, error) {
-			return &cmd.BGP{UI: ui}, nil
 		}, "bgppeer": func() (cli.Command, error) {
 			return &cmd.BGPPeer{UI: ui}, nil
 		}, "trapreceiver": func() (cli.Command, error) {

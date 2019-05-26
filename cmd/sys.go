@@ -20,17 +20,20 @@ type System struct {
 func (c *System) Run(args []string) int {
 	rs := 0
 	ln := len(args)
+	ip := ""
 	communit := "public"
 	switch ln {
 	case 1:
+		ip = args[0]
 	case 2:
+		ip = args[0]
 		communit = args[1]
 	case 3:
 	default:
 		c.UI.Output(c.Help())
 		return 0
 	}
-	d, err := snmp.GetSystem(args[0], communit)
+	d, err := snmp.GetSystem(ip, communit)
 	if err != nil {
 		log.Println(err)
 		rs = 1
