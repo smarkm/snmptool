@@ -24,6 +24,7 @@ func (c *IPAddress) Run(args []string) (rs int) {
 	case 1:
 		ip = args[0]
 	case 2:
+		ip = args[0]
 		communit = args[1]
 	case 3:
 	default:

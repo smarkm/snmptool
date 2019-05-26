@@ -10,3 +10,7 @@ const (
 	SysLocation = ".1.3.6.1.2.1.1.6.0"
 	SysServices = ".1.3.6.1.2.1.1.7.0"
 )
+
+const (
+	InvalidValue = "invalid value"
+)

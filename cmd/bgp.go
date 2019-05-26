@@ -1,6 +1,13 @@
 package cmd
 
-import "github.com/mitchellh/cli"
+import (
+	"log"
+	"strconv"
+	"strings"
+
+	"github.com/mitchellh/cli"
+	"github.com/smarkm/snmptool/snmp"
+)
 
 //BGP command
 type BGP struct {
@@ -41,13 +48,29 @@ type BGPPeer struct {
 //Run execute functioin
 func (c *BGPPeer) Run(args []string) (rs int) {
 	ln := len(args)
+	ip := ""
+	communit := "public"
 	switch ln {
 	case 1:
-
+		ip = args[0]
 	case 2:
+		ip = args[0]
+		communit = args[1]
+	case 3:
 	default:
 		c.UI.Output(c.Help())
-		return rs
+		return 0
+	}
+	items, err := snmp.GetBGPPeerTable(ip, communit)
+	if err != nil {
+		log.Println(err)
+	} else {
+		c.UI.Output("LocalAddr\t LocalPort\t RemoteAddr\t  RemotePort\t RemoteAS\t PeerState\t")
+		for _, item := range items {
+			d := []string{item.LocalAddr, strconv.Itoa(item.LocalPort), item.RemoteAddr, strconv.Itoa(item.RemotePort), strconv.Itoa(item.RemoteAS), item.PeerStateStr()}
+			c.UI.Output(strings.Join(d, "\t"))
+		}
+		c.UI.Output("Total: " + strconv.Itoa(len(items)) + " rows")
 	}
 	return
 }
