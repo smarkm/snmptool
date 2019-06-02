@@ -40,6 +40,8 @@ func main() {
 			return &cmd.BGPPeer{UI: ui}, nil
 		}, "trapreceiver": func() (cli.Command, error) {
 			return &cmd.Receiver{UI: ui}, nil
+		}, "cdp": func() (cli.Command, error) {
+			return &cmd.CDP{UI: ui}, nil
 		},
 	}
 

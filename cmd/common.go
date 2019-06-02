@@ -20,3 +20,8 @@ func ParseIPAndCommunity(args []string, expect int) (ip, community string, err e
 	}
 	return
 }
+
+//i2S string
+func i2S(n int) string {
+	return strconv.Itoa(n)
+}
