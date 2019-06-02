@@ -18,31 +18,23 @@ type System struct {
 
 //Run execute functioin
 func (c *System) Run(args []string) int {
-	rs := 0
-	ln := len(args)
-	ip := ""
-	communit := "public"
-	switch ln {
-	case 1:
-		ip = args[0]
-	case 2:
-		ip = args[0]
-		communit = args[1]
-	case 3:
-	default:
+	ip, community, err := ParseIPAndCommunity(args, 1)
+	if err != nil {
+		c.UI.Output(err.Error())
 		c.UI.Output(c.Help())
 		return 0
 	}
-	d, err := snmp.GetSystem(ip, communit)
+
+	d, err := snmp.GetSystem(ip, community)
 	if err != nil {
 		log.Println(err)
-		rs = 1
+		return 1
 	} else {
 		data := []string{"sysName: " + d.Name, "sysDescr: " + d.Desc, "sysObjectID: " + d.OId + " (" + util.GetDeviceType(d.OId) + ")", "sysContract: " + d.Contract,
 			"sysLocation: " + d.Location, "sysServices: " + d.Services, "sysUpTime: " + d.UpTime}
 		fmt.Println(strings.Join(data, "\n"))
 	}
-	return rs
+	return 0
 }
 
 //Synopsis Synopsis information

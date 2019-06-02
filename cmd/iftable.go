@@ -19,18 +19,13 @@ type IfTable struct {
 
 //Run execute functioin
 func (c *IfTable) Run(args []string) (rs int) {
-	ln := len(args)
-	communit := "public"
-	switch ln {
-	case 1:
-	case 2:
-		communit = args[1]
-	case 3:
-	default:
+	ip, community, err := ParseIPAndCommunity(args, 1)
+	if err != nil {
+		c.UI.Output(err.Error())
 		c.UI.Output(c.Help())
 		return 0
 	}
-	ports, err := snmp.GetPortsInformation(args[0], communit)
+	ports, err := snmp.GetPortsInformation(ip, community)
 	if err != nil {
 		log.Println(err)
 		rs = 1

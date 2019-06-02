@@ -18,22 +18,21 @@ type Interface struct {
 
 //Run execute functioin
 func (c *Interface) Run(args []string) (rs int) {
-	ln := len(args)
-	communit := "public"
-
-	if ln < 3 {
+	ip, community, err := ParseIPAndCommunity(args, 3)
+	if err != nil {
+		c.UI.Output(err.Error())
 		c.UI.Output(c.Help())
-		return
+		return 0
 	}
 
-	ip, communit, index := args[0], args[1], args[2]
+	index := args[2]
 
 	if "all" == index {
-		c.showAllPortsInformation(ip, communit)
+		c.showAllPortsInformation(ip, community)
 		return
 	}
 
-	c.showOnePortInformation(ip, communit, index)
+	c.showOnePortInformation(ip, community, index)
 
 	return
 }
@@ -72,5 +71,5 @@ func (c *Interface) Synopsis() string {
 
 //Help Help information
 func (c *Interface) Help() string {
-	return "args should be : ip communit index"
+	return "args should be : ip community index"
 }

@@ -61,19 +61,14 @@ type LLDPRem struct {
 
 //Run execute functioin
 func (c *LLDPRem) Run(args []string) int {
-	rs := 0
-	ln := len(args)
-	communit := "public"
-	switch ln {
-	case 1:
-	case 2:
-		communit = args[1]
-	case 3:
-	default:
+	ip, community, err := ParseIPAndCommunity(args, 1)
+	if err != nil {
+		c.UI.Output(err.Error())
 		c.UI.Output(c.Help())
 		return 0
 	}
-	items, err := snmp.GetLLdpRemTable(args[0], communit)
+
+	items, err := snmp.GetLLdpRemTable(ip, community)
 	if err != nil {
 		log.Println(err)
 	} else {
@@ -84,7 +79,7 @@ func (c *LLDPRem) Run(args []string) int {
 		}
 		c.UI.Output("Total: " + strconv.Itoa(len(items)) + " rows")
 	}
-	return rs
+	return 0
 }
 
 //Synopsis Synopsis information

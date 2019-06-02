@@ -17,20 +17,14 @@ type Storage struct {
 
 //Run execute functioin
 func (c *Storage) Run(args []string) (rs int) {
-	ln := len(args)
-	ip := ""
-	communit := "public"
-	switch ln {
-	case 1:
-		ip = args[0]
-	case 2:
-		communit = args[1]
-	case 3:
-	default:
+	ip, community, err := ParseIPAndCommunity(args, 1)
+	if err != nil {
+		c.UI.Output(err.Error())
 		c.UI.Output(c.Help())
 		return 0
 	}
-	items, err := snmp.GetWinStorage(ip, communit)
+
+	items, err := snmp.GetWinStorage(ip, community)
 	if err != nil {
 		log.Println(err)
 	} else {
