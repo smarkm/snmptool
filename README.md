@@ -4,8 +4,3 @@
 ![Show case](demo.gif)
 ## Road map
 ![Show case](roadmap.png)
-
-## Coffee Support
-[https://www.paypal.me/smarkmeng](https://www.paypal.me/smarkmeng)
-
-![sfd](support.png)
