@@ -4,3 +4,4 @@
 ![Show case](demo.gif)
 ## Road map
 ![Show case](roadmap.png)
+add travis build
