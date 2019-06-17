@@ -27,7 +27,7 @@ install:
   - go get github.com/smarkm/golang-underscore
  
 
-script:
+
 notifications:
   email: false
 
