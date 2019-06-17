@@ -30,6 +30,3 @@ install:
 
 notifications:
   email: false
-
-git:
-depth: 999999
