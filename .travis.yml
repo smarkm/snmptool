@@ -4,7 +4,6 @@ dist: trusty
 
 go:
   - 1.9.x
-  - 1.12.x
 
 env:
   global:
@@ -24,6 +23,7 @@ matrix:
 install:
   - go get github.com/mitchellh/cli
   - go get github.com/soniah/gosnmp
+  - go get github.com/go-bindata/go-bindata
  
 
 script:
