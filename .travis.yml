@@ -20,9 +20,6 @@ matrix:
     - os: windows
       env: TARGET=amd64
       go: 1.9.x
-    - os: windows
-      env: TARGET=amd64
-      go: 1.12.x
 
 install:
   - go get github.com/mitchellh/cli
