@@ -4,6 +4,9 @@
 [![](http://shields.katacoda.com/katacoda/smark/count.svg)](https://www.katacoda.com/smark/scenarios/snmptool)
 ## Usage
 ![Show case](demo.gif)
+
+* you can alos [learn online](https://www.katacoda.com/smark/scenarios/snmptool)
+
 ## Road map
 ![Show case](roadmap.png)
-add travis build
+
