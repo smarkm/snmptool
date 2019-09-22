@@ -1,5 +1,7 @@
 package snmp
 
+import "strings"
+
 //LLDP
 const (
 	//LLdpLocPortSubtype = [...]string{""}
@@ -36,6 +38,21 @@ type LLdpRem struct {
 	LLdpRemSysName      string
 	LLdpRemPortID       string
 	LLdpRemPortDesc     string
+}
+
+func (l *LLdpRem) GetLocalIndex() string {
+	indexs := strings.Split(l.LLdpRemLocalPortNum, ".")
+	if len(indexs) > 2 {
+		return indexs[1]
+	}
+	return ""
+}
+func (l *LLdpRem) GetRemIndex() string {
+	indexs := strings.Split(l.LLdpRemLocalPortNum, ".")
+	if len(indexs) > 2 {
+		return indexs[2]
+	}
+	return ""
 }
 
 //GetLLdpLocalTable get loclTable

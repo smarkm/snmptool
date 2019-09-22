@@ -17,6 +17,14 @@ func Ping(ip string, communit string) (d model.Device, e error) {
 	return GetSystem(ip, communit)
 }
 
+func GetHostName(ip string, community string) (host string, err error) {
+	device, err := GetSystem(ip, community)
+	if err != nil {
+		return "", err
+	}
+	return device.Name, nil
+}
+
 //GetDeviceInfo get base system information
 func GetDeviceInfo(ip string, communit string) (d model.Device, err error) {
 	s := NewSNMP(ip, communit)

@@ -58,3 +58,16 @@ func TestGetIpAddrTable(t *testing.T) {
 		fmt.Println("")
 	}
 }
+
+func TestGetHostName(t *testing.T) {
+	log.Println(GetHostName("172.16.2.2", "public"))
+}
+
+func TestGetIPForaordTable(t *testing.T) {
+	items, err := GetIPForwardTable(local, communit)
+	for _, item := range items {
+		log.Println(item)
+	}
+	log.Println(err)
+}
+
