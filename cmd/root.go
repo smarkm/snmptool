@@ -51,12 +51,13 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+	UseGlobleFlags(rootCmd)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.snmptool.yaml)")
+	//rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.snmptool.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -91,8 +92,8 @@ func initConfig() {
 
 //UseGlobleFlags use
 func UseGlobleFlags(cmd *cobra.Command) {
-	cmd.Flags().StringVarP(&IP, "ip", "i", "", "Help message for toggle")
-	cmd.Flags().StringVarP(&Community, "community", "c", "public", "Help message for toggle")
+	cmd.Flags().StringVarP(&IP, "ip", "i", "", "target ip")
+	cmd.Flags().StringVarP(&Community, "community", "c", "public", "community")
 	cmd.MarkFlagRequired("ip")
 }
 
