@@ -7,7 +7,7 @@
 ## Usage
 ![Show case](demo.gif)
 
-* you can alos [learn online](https://www.katacoda.com/smark/scenarios/snmptool)
+* you can alos [play online](https://www.katacoda.com/smark/scenarios/snmptool)
 
 ## Road map
 ![Show case](roadmap.png)
