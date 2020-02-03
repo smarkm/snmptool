@@ -1,6 +1,9 @@
 package snmp
 
+//BGP oids
 const (
+	BgpLocalAS = ".3.6.1.2.1.15.2.0"
+
 	BgpPeerLocalAddrOid  = ".1.3.6.1.2.1.15.3.1.5"
 	BgpPeerLocalPortOid  = ".1.3.6.1.2.1.15.3.1.6"
 	BgpPeerRemoteAddrOid = ".1.3.6.1.2.1.15.3.1.7"
@@ -9,10 +12,12 @@ const (
 	BgpPeerStateOid      = ".1.3.6.1.2.1.15.3.1.2"
 )
 
+//Var
 var (
 	PeerState = []string{"idle(1)", "connect(2)", "active(3)", "opensent(4)", "openconfirm(5)", "established(6)"}
 )
 
+//BGPPeer snmp struct
 type BGPPeer struct {
 	LocalAddr  string
 	LocalPort  int
@@ -30,7 +35,17 @@ func (p *BGPPeer) PeerStateStr() string {
 	return InvalidValue
 }
 
-//GetOspfNbrTable get Nbr table
+//GetLocalAS get local as
+func GetLocalAS(ip, community string) (as int, err error) {
+	pdu, err := GetOne(ip, community, BgpLocalAS)
+	if err != nil {
+		return
+	}
+	as = GetSnmpInt(pdu)
+	return
+}
+
+//GetBGPPeerTable get Nbr table
 func GetBGPPeerTable(ip string, communit string) (rs []*BGPPeer, err error) {
 	oids := []string{BgpPeerLocalAddrOid, BgpPeerLocalPortOid, BgpPeerRemoteAddrOid,
 		BgpPeerRemotePortOid, BgpPeerRemoteASOid, BgpPeerStateOid}

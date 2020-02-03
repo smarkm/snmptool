@@ -1,51 +1,53 @@
+/*
+Copyright © 2020 NAME HERE <EMAIL ADDRESS>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package cmd
 
-//this file will be deprected and remove [Remove]
 import (
 	"fmt"
 	"log"
 	"strconv"
 	"strings"
 
-	"github.com/mitchellh/cli"
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/spf13/cobra"
 )
 
-//IfTable command
-type IfTable struct {
-	//UI extend
-	UI cli.Ui
-}
-
-//Run execute functioin
-func (c *IfTable) Run(args []string) (rs int) {
-	ip, community, err := ParseIPAndCommunity(args, 1)
-	if err != nil {
-		c.UI.Output(err.Error())
-		c.UI.Output(c.Help())
-		return 0
-	}
-	ports, err := snmp.GetPortsInformation(ip, community)
-	if err != nil {
-		log.Println(err)
-		rs = 1
-	} else {
-		header := []string{"Index", "Admin", "Oper", "Name", "Speed"}
-		c.UI.Output(strings.Join(header, "\t"))
-		for _, p := range ports {
-			fmt.Println(strings.Join([]string{strconv.Itoa(p.Index), p.AdminStr(), p.OperStr(), p.Name, strconv.FormatInt(p.Speed, 10)}, "\t"))
+// iftableCmd represents the iftable command
+var iftableCmd = &cobra.Command{
+	Use:   "iftable",
+	Short: "Show Iftable brief information",
+	Long:  ``,
+	Run: func(cmd *cobra.Command, args []string) {
+		ports, err := snmp.GetPortsInformation(IP, Community)
+		if err != nil {
+			log.Println(err)
+		} else {
+			header := []string{"Index", "Admin", "Oper", "Name", "Speed"}
+			fmt.Println(strings.Join(header, "\t"))
+			for _, p := range ports {
+				fmt.Println(strings.Join([]string{strconv.Itoa(p.Index), p.AdminStr(), p.OperStr(), p.Name, strconv.FormatInt(p.Speed, 10)}, "\t"))
+			}
+			fmt.Println("Total: " + strconv.Itoa(len(ports)) + " rows")
 		}
-		c.UI.Output("Total: " + strconv.Itoa(len(ports)) + " rows")
-	}
-	return
+
+	},
 }
 
-//Synopsis Synopsis information
-func (c *IfTable) Synopsis() string {
-	return "get ifTable"
-}
+func init() {
+	rootCmd.AddCommand(iftableCmd)
+	UseGlobleFlags(iftableCmd)
 
-//Help Help information
-func (c *IfTable) Help() string {
-	return "get ifTable"
 }

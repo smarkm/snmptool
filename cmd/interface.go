@@ -1,3 +1,18 @@
+/*
+Copyright © 2020 NAME HERE <EMAIL ADDRESS>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package cmd
 
 import (
@@ -6,70 +21,58 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mitchellh/cli"
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/spf13/cobra"
 )
 
-//Interface show interface brief base index
-type Interface struct {
-	//UI extend
-	UI cli.Ui
+var index string
+
+// interfaceCmd represents the interface command
+var interfaceCmd = &cobra.Command{
+	Use:   "interface",
+	Short: "Show interface biref information",
+	Long:  ``,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println(index)
+		if "all" == index {
+			showAllPortsInformation(IP, Community)
+		}
+
+		showOnePortInformation(IP, Community, index)
+
+	},
 }
 
-//Run execute functioin
-func (c *Interface) Run(args []string) (rs int) {
-	ip, community, err := ParseIPAndCommunity(args, 3)
-	if err != nil {
-		c.UI.Output(err.Error())
-		c.UI.Output(c.Help())
-		return 0
-	}
-
-	index := args[2]
-
-	if "all" == index {
-		c.showAllPortsInformation(ip, community)
-		return
-	}
-
-	c.showOnePortInformation(ip, community, index)
-
-	return
+func init() {
+	rootCmd.AddCommand(interfaceCmd)
+	UseGlobleFlags(interfaceCmd)
+	interfaceCmd.Flags().StringVarP(&index, "index", "", "", "ifindex")
+	interfaceCmd.MarkFlagRequired("index")
 }
-func (c *Interface) showOnePortInformation(ip, community, index string) (err error) {
+func showOnePortInformation(ip, community, index string) (err error) {
 	port, err := snmp.GetPortInformation(ip, community, index)
 	if err != nil {
 		log.Println(err)
 	} else {
 		header := []string{"Index", "Admin", "Oper", "Name", "Speed(bits)"}
-		c.UI.Output(strings.Join(header, "\t"))
+		fmt.Println(strings.Join(header, "\t"))
 		fmt.Println(strings.Join([]string{strconv.Itoa(port.Index), port.AdminStr(), port.OperStr(), port.Name, strconv.FormatInt(port.Speed, 10)}, "\t"))
 	}
 	return
 }
 
-func (c *Interface) showAllPortsInformation(ip, community string) (err error) {
+func showAllPortsInformation(ip, community string) (err error) {
 	ports, err := snmp.GetPortsInformation(ip, community)
 	if err != nil {
 		log.Println(err)
 		return
 	} else {
 		header := []string{"Index", "Admin", "Oper", "Name", "Speed"}
-		c.UI.Output(strings.Join(header, "\t"))
+		fmt.Println(strings.Join(header, "\t"))
 		for _, p := range ports {
 			fmt.Println(strings.Join([]string{strconv.Itoa(p.Index), p.AdminStr(), p.OperStr(), p.Name, strconv.FormatInt(p.Speed, 10)}, "\t"))
 		}
-		c.UI.Output("Total: " + strconv.Itoa(len(ports)) + " rows")
+		fmt.Println("Total: " + strconv.Itoa(len(ports)) + " rows")
 	}
 	return
-}
-
-//Synopsis Synopsis information
-func (c *Interface) Synopsis() string {
-	return "Show interface brief base index"
-}
-
-//Help Help information
-func (c *Interface) Help() string {
-	return "args should be : ip community index"
 }

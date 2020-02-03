@@ -1,94 +1,52 @@
+/*
+Copyright © 2020 NAME HERE <EMAIL ADDRESS>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"strconv"
 	"strings"
 
-	"github.com/mitchellh/cli"
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/spf13/cobra"
 )
 
-//OSPF command
-type OSPF struct {
-	//UI extend
-	UI cli.Ui
-}
-
-//Run execute functioin
-func (c *OSPF) Run(args []string) (rs int) {
-	ln := len(args)
-	ip := ""
-	communit := "public"
-	switch ln {
-	case 1:
-		ip = args[0]
-	case 2:
-		ip = args[0]
-		communit = args[1]
-	case 3:
-	default:
-		c.UI.Output(c.Help())
-		return 0
-	}
-	items, err := snmp.GetOspfIfTable(ip, communit)
-	if err != nil {
-		log.Println(err)
-	} else {
-		c.UI.Output("IP Address\t AdminState\t State\t ")
-		for _, item := range items {
-			d := []string{item.OspfIfIPAddress, item.AdminStateStr(), item.StateStr()}
-			c.UI.Output(strings.Join(d, "\t"))
+// ospfCmd represents the ospf command
+var ospfCmd = &cobra.Command{
+	Use:   "ospf",
+	Short: "Show OSPF biref information",
+	Long:  ``,
+	Run: func(cmd *cobra.Command, args []string) {
+		items, err := snmp.GetOspfIfTable(IP, Community)
+		if err != nil {
+			log.Println(err)
+		} else {
+			fmt.Println("IP Address\t AdminState\t State\t ")
+			for _, item := range items {
+				d := []string{item.OspfIfIPAddress, item.AdminStateStr(), item.StateStr()}
+				fmt.Println(strings.Join(d, "\t"))
+			}
+			fmt.Println("Total: " + strconv.Itoa(len(items)) + " rows")
 		}
-		c.UI.Output("Total: " + strconv.Itoa(len(items)) + " rows")
-	}
-	return
+	},
 }
 
-//Synopsis Synopsis information
-func (c *OSPF) Synopsis() string {
-	return "Show ospf interface information"
-}
+func init() {
+	rootCmd.AddCommand(ospfCmd)
+	UseGlobleFlags(ospfCmd)
 
-//Help Help information
-func (c *OSPF) Help() string {
-	return c.Synopsis()
-}
-
-//OSPFNbr command
-type OSPFNbr struct {
-	UI cli.Ui
-}
-
-//Run execute functioin
-func (c *OSPFNbr) Run(args []string) (rs int) {
-	ip, community, err := ParseIPAndCommunity(args, 1)
-	if err != nil {
-		c.UI.Output(err.Error())
-		c.UI.Output(c.Help())
-		return 0
-	}
-
-	items, err := snmp.GetOspfNbrTable(ip, community)
-	if err != nil {
-		log.Println(err)
-	} else {
-		c.UI.Output("Nbr IP\t Nbr Router\t Nbr State\t ")
-		for _, item := range items {
-			d := []string{item.NbrIPAddress, item.NbrRtrID, item.NbrStateStr()}
-			c.UI.Output(strings.Join(d, "\t"))
-		}
-		c.UI.Output("Total: " + strconv.Itoa(len(items)) + " rows")
-	}
-	return
-}
-
-//Synopsis Synopsis information
-func (c *OSPFNbr) Synopsis() string {
-	return "Show ospf peer information"
-}
-
-//Help Help information
-func (c *OSPFNbr) Help() string {
-	return c.Synopsis()
 }

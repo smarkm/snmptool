@@ -17,44 +17,30 @@ package cmd
 
 import (
 	"fmt"
-	"log"
-	"strconv"
-	"strings"
 
-	"github.com/smarkm/snmptool/snmp"
 	"github.com/spf13/cobra"
 )
 
-// ipaddressCmd represents the ipaddress command
-var ipaddressCmd = &cobra.Command{
-	Use:   "ipaddress",
-	Short: "Show ip address table",
+// versionCmd represents the version command
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Show version",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetIpAddrTable(IP, Community)
-		if err != nil {
-			log.Println(err)
-		} else {
-			fmt.Println("IP\t Netmask\t Index\t Descr")
-			for _, item := range items {
-				d := []string{item.IP, item.Netmask, strconv.Itoa(item.IfIndex), item.IfDesc}
-				fmt.Println(strings.Join(d, "\t"))
-			}
-			fmt.Println("Total: " + strconv.Itoa(len(items)) + " rows")
-		}
+		fmt.Println("version: "+version)
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(ipaddressCmd)
+	rootCmd.AddCommand(versionCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// ipaddressCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// versionCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// ipaddressCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// versionCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
