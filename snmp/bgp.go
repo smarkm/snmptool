@@ -17,6 +17,16 @@ var (
 	PeerState = []string{"idle(1)", "connect(2)", "active(3)", "opensent(4)", "openconfirm(5)", "established(6)"}
 )
 
+func init() {
+	OIDs["bgpLocalAS"] = BgpLocalAS
+	OIDs["bgpPeerLocalAddr"] = BgpPeerLocalAddrOid
+	OIDs["bgpPeerLocalPort"] = BgpPeerLocalPortOid
+	OIDs["bgpPeerRemoteAddr"] = BgpPeerRemoteAddrOid
+	OIDs["bgpPeerRemotePort"] = BgpPeerRemotePortOid
+	OIDs["bgpPeerRemoteAS"] = BgpPeerRemoteASOid
+	OIDs["bgpPeerStateOid"] = BgpPeerStateOid
+}
+
 //BGPPeer snmp struct
 type BGPPeer struct {
 	LocalAddr  string

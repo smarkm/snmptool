@@ -29,7 +29,11 @@ import (
 const version = "V0.0.1"
 
 var cfgFile string
+
+//IP target ip
 var IP string
+
+//Community read  community
 var Community string
 
 // rootCmd represents the base command when called without any subcommands
@@ -92,9 +96,8 @@ func initConfig() {
 
 //UseGlobleFlags use
 func UseGlobleFlags(cmd *cobra.Command) {
-	cmd.Flags().StringVarP(&IP, "ip", "i", "", "target ip")
+	cmd.Flags().StringVarP(&IP, "ip", "i", "127.0.0.1", "target ip")
 	cmd.Flags().StringVarP(&Community, "community", "c", "public", "community")
-	cmd.MarkFlagRequired("ip")
 }
 
 //i2S string

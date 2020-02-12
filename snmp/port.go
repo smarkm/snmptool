@@ -42,6 +42,31 @@ const (
 	ipAdEntReasmMaxSize = ".1.3.6.1.2.1.4.20.1.5"
 )
 
+func init() {
+	OIDs["ifIndex"] = IfIndex
+	OIDs["ifDescr"] = IfDescr
+	OIDs["ifType"] = IfType
+	OIDs["ifMtu"] = IfMtu
+	OIDs["ifSpeed"] = IfSpeed
+	OIDs["ifPhysAddress"] = IfPhysAddress
+	OIDs["ifAdminStatus"] = IfAdminStatus
+	OIDs["ifOperStatus"] = IfOperStatus
+	OIDs["ifLastChange"] = IfLastChange
+	OIDs["ifInOctects"] = IfInOctets
+	OIDs["ifInUcastPkts"] = IfInUcastPkts
+	OIDs["ifInNUcastPkts"] = IfInNUcastPkts
+	OIDs["ifInDiscards"] = IfInDiscards
+	OIDs["ifInErrors"] = IfInErrors
+	OIDs["ifInUnknownProtos"] = IfInUnknownProtos
+	OIDs["ifOutOctets"] = IfOutOctets
+	OIDs["ifOutUcastPkts"] = IfOutUcastPkts
+	OIDs["ifOutNUcastPkts"] = IfOutNUcastPkts
+	OIDs["ifOutDiscards"] = IfOutDiscards
+	OIDs["ifOutErrors"] = IfOutErrors
+	OIDs["ifOutQLen"] = IfOutQLen
+	OIDs["ifSpecific"] = IfSpeed
+}
+
 //GetPortsInformation get basic port information
 func GetPortsInformation(ip string, communit string) (ports map[int]*model.Port, err error) {
 	oids := []string{IfIndex, IfDescr, IfAdminStatus, IfOperStatus, IfMtu, IfSpeed, IfType, IfPhysAddress}
