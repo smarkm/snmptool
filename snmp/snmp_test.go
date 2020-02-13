@@ -51,8 +51,8 @@ func TestHrProcessorLoad(t *testing.T) {
 	}
 }
 
-func TestGetIpAddrTable(t *testing.T) {
-	table, _ := GetIpAddrTable(local, communit)
+func TestGetIPAddrTable(t *testing.T) {
+	table, _ := GetIPAddrTable(local, communit)
 	for _, item := range table {
 		fmt.Println(item)
 		fmt.Println("")
@@ -70,4 +70,3 @@ func TestGetIPForaordTable(t *testing.T) {
 	}
 	log.Println(err)
 }
-

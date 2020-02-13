@@ -40,6 +40,7 @@ type LLdpRem struct {
 	LLdpRemPortDesc     string
 }
 
+//GetLocalIndex RT
 func (l *LLdpRem) GetLocalIndex() string {
 	indexs := strings.Split(l.LLdpRemLocalPortNum, ".")
 	if len(indexs) > 2 {
@@ -47,6 +48,8 @@ func (l *LLdpRem) GetLocalIndex() string {
 	}
 	return ""
 }
+
+//GetRemIndex RT
 func (l *LLdpRem) GetRemIndex() string {
 	indexs := strings.Split(l.LLdpRemLocalPortNum, ".")
 	if len(indexs) > 2 {

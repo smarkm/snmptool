@@ -1,5 +1,6 @@
 package snmp
 
+//Const
 const (
 	CdpInterfaceIfIndexOid       = ".1.3.6.1.4.1.9.9.23.1.1.1.1.1"
 	CdpInterfaceIfEnableOid      = ".1.3.6.1.4.1.9.9.23.1.1.1.1.2"
@@ -9,10 +10,12 @@ const (
 	CdpInterfaceIfNameOid        = ".1.3.6.1.4.1.9.9.23.1.1.1.1.6"
 )
 
+//Var
 var (
 	Enable = []string{"true(1)", "false(2)"}
 )
 
+//CDPItem basic information wap
 type CDPItem struct {
 	IfIndex     int
 	Enable      int
@@ -22,16 +25,15 @@ type CDPItem struct {
 	Name        string
 }
 
-//ParseEnable
+//ParseEnable value
 func (i *CDPItem) ParseEnable() string {
 	if i.Enable > 0 {
 		return Enable[i.Enable-1]
-	} else {
-		return "invalid value"
 	}
+	return "invalid value"
 }
 
-//GetLLdpLocalTable get loclTable
+//GetCDPTable get loclTable
 func GetCDPTable(ip string, communit string) (ips []*CDPItem, err error) {
 	oids := []string{CdpInterfaceIfIndexOid, CdpInterfaceIfEnableOid, CdpInterfaceIfMsgIntervalOid, CdpInterfaceIfGroupOid, CdpInterfaceIfPortOid, CdpInterfaceIfNameOid}
 	tableRows, err := GetTable(ip, communit, oids)

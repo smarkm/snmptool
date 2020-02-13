@@ -11,6 +11,7 @@ var (
 	recivers = make(map[string]*TrapReciver)
 )
 
+//TrapReciver RT
 type TrapReciver struct {
 	Address     string
 	i           *gosnmp.TrapListener

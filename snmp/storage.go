@@ -1,5 +1,6 @@
 package snmp
 
+//Const
 const (
 	WinStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3"
 	WinStorageUnits = ".1.3.6.1.2.1.25.2.3.1.4"
@@ -7,6 +8,7 @@ const (
 	WinStorageUsed  = ".1.3.6.1.2.1.25.2.3.1.6"
 )
 
+//WinStorage  wap
 type WinStorage struct {
 	Descr string `json:"descr"`
 	Units int    `json:"units"`
@@ -14,7 +16,7 @@ type WinStorage struct {
 	Used  int64  `json:"used"`
 }
 
-//GetLLdpLocalTable get loclTable
+//GetWinStorage get loclTable
 func GetWinStorage(ip string, communit string) (table []*WinStorage, err error) {
 	oids := []string{WinStorageDescr, WinStorageUnits, WinStorageSize, WinStorageUsed}
 	tableRows, err := GetTable(ip, communit, oids)

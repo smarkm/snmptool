@@ -17,6 +17,7 @@ func Ping(ip string, communit string) (d model.Device, e error) {
 	return GetSystem(ip, communit)
 }
 
+//GetHostName RT
 func GetHostName(ip string, community string) (host string, err error) {
 	device, err := GetSystem(ip, community)
 	if err != nil {

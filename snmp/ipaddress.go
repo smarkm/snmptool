@@ -12,23 +12,23 @@ const (
 	OIDIpAdEntNetMask = ".1.3.6.1.2.1.4.20.1.3"
 )
 
-//IpAddr Entity
-type IpAddr struct {
+//IPAddr Entity
+type IPAddr struct {
 	IP      string
 	IfIndex int
 	Netmask string
 	IfDesc  string
 }
 
-//GetLLdpLocalTable get loclTable
-func GetIpAddrTable(ip string, communit string) (ips []*IpAddr, err error) {
+//GetIPAddrTable get loclTable
+func GetIPAddrTable(ip string, communit string) (ips []*IPAddr, err error) {
 	oids := []string{OIDIpAdEntAddr, OIDIpAdEntIfIndex, OIDIpAdEntNetMask}
 	tableRows, err := GetTable(ip, communit, oids)
 	if err != nil {
 		return
 	}
 	for _, row := range tableRows {
-		item := new(IpAddr)
+		item := new(IPAddr)
 		item.IP = GetSnmpString(row[OIDIpAdEntAddr])
 		item.IfIndex = GetSnmpInt(row[OIDIpAdEntIfIndex])
 		item.Netmask = GetSnmpString(row[OIDIpAdEntNetMask])
