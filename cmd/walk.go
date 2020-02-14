@@ -19,30 +19,36 @@ import (
 	"fmt"
 
 	"github.com/smarkm/snmptool/snmp"
-
+	"github.com/soniah/gosnmp"
 	"github.com/spf13/cobra"
 )
 
-// getCmd represents the get command
-var getCmd = &cobra.Command{
-	Use:   "get",
-	Short: "Execute SNMP GET function",
+// walkCmd represents the walk command
+var walkCmd = &cobra.Command{
+	Use:   "walk",
+	Short: "Execute SNMP WALK",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		target := ParseOIDName(oid)
-		rs, err := snmp.GetOne(IP, Community, target)
+		s := snmp.NewSNMP(IP, Community)
+		err := s.Connect()
 		if err != nil {
-			fmt.Println(err)
 			return
 		}
-		fmt.Println(snmp.GetSnmpString(rs))
+		defer s.Conn.Close()
+		target := ParseOIDName(oid)
+		err = s.Walk(target, func(data gosnmp.SnmpPDU) error {
+			fmt.Println(snmp.GetSnmpString(data))
+			return nil
+		})
+		if err != nil {
+			fmt.Println(err)
+		}
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(getCmd)
-	UseGlobleFlags(getCmd)
-	getCmd.Flags().StringVarP(&oid, "oid", "o", "", "target oid")
+	rootCmd.AddCommand(walkCmd)
+	UseGlobleFlags(walkCmd)
+	walkCmd.Flags().StringVarP(&oid, "oid", "o", "", "root oid")
 	getCmd.MarkFlagRequired("oid")
-
 }

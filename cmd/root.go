@@ -20,6 +20,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/smarkm/snmptool/snmp"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -35,6 +36,8 @@ var IP string
 
 //Community read  community
 var Community string
+
+var oid string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -103,4 +106,13 @@ func UseGlobleFlags(cmd *cobra.Command) {
 //i2S string
 func i2S(n int) string {
 	return strconv.Itoa(n)
+}
+
+//ParseOIDName parse named oid
+func ParseOIDName(oid string) (target string) {
+	target = snmp.OIDs[oid]
+	if target == "" {
+		target = oid
+	}
+	return
 }
