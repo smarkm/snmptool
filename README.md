@@ -6,9 +6,39 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/smarkm/snmptool)](https://goreportcard.com/report/github.com/smarkm/snmptool)
 ## Usage
 ![Show case](demo.gif)
+```
+Simple snmp tool
 
-* you can alos [play online](https://www.katacoda.com/smark/scenarios/snmptool)
+Usage:
+  snmptool [command]
+
+Available Commands:
+  bgp         Show BGP brief information
+  cdp         Show CDP brief infromation
+  get         Execute SNMP GET function
+  help        Help about any command
+  iftable     Show Iftable brief information
+  interface   Show interface biref information
+  ipaddress   Show ip address table
+  lldp        Show LLDP brief information
+  oids        Show Name-OID mapping
+  ospf        Show OSPF biref information
+  storage     Show storage biref information
+  sys         Show system brief information
+  trap        Start trap receiver
+  version     Show version
+  walk        Execute SNMP WALK
+
+Flags:
+  -c, --community string   community (default "public")
+  -h, --help               help for snmptool
+  -i, --ip string          target ip (default "127.0.0.1")
+
+Use "snmptool [command] --help" for more information about a command.
+```
+
+* you can [play online](https://www.katacoda.com/smark/scenarios/snmptool)
 
 ## Road map
-![Show case](roadmap.png)
+
 
