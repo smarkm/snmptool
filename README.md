@@ -4,6 +4,12 @@
 [![Build Status](https://travis-ci.org/smarkm/snmptool.svg?branch=master)](https://travis-ci.org/smarkm/snmptool)
 [![](http://shields.katacoda.com/katacoda/smark/count.svg)](https://www.katacoda.com/smark/scenarios/snmptool)
 [![Go Report Card](https://goreportcard.com/badge/github.com/smarkm/snmptool)](https://goreportcard.com/report/github.com/smarkm/snmptool)
+
+## Download
+download the last version
+* Linux  : [snmptool](https://github.com/smarkm/snmptool/releases/download/v0.0.2/snmptool)
+* Window : [snmptool.exe](https://github.com/smarkm/snmptool/releases/download/v0.0.2/snmptool.exe)
+
 ## Usage
 ![Show case](demo.gif)
 ```
