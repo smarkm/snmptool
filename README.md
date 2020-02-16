@@ -11,7 +11,7 @@ download the last version
 * Window : [snmptool.exe](https://github.com/smarkm/snmptool/releases/download/v0.0.2/snmptool.exe)
 
 ## Usage
-![Show case](demo.gif)
+![Show case](demo-v0.0.2.gif)
 ```
 Simple snmp tool
 
