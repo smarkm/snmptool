@@ -10,8 +10,8 @@ const (
 
 //OspfIfTable oids
 const (
-	OspfNbrIpAddrOid = ".1.3.6.1.2.1.14.10.1.1"
-	OspfNbrRtrIdOid  = ".1.3.6.1.2.1.14.10.1.3"
+	OspfNbrIPAddrOid = ".1.3.6.1.2.1.14.10.1.1"
+	OspfNbrRtrIDOid  = ".1.3.6.1.2.1.14.10.1.3"
 	OspfNbrStateOid  = ".1.3.6.1.2.1.14.10.1.6"
 )
 
@@ -41,21 +41,19 @@ type OspfNbrItem struct {
 func (o *OspfItem) StateStr() string {
 	if o.OspfIfState > 0 {
 		return IfState[o.OspfIfState-1]
-	} else {
-		return "invalid value"
 	}
+	return "invalid value"
 }
 
 //AdminStateStr parse meaningful value
 func (o *OspfItem) AdminStateStr() string {
 	if o.OspfIfAdminStat > 0 {
 		return IfState[o.OspfIfAdminStat-1]
-	} else {
-		return "invalid value"
 	}
+	return "invalid value"
 }
 
-//GetLLdpLocalTable get loclTable
+//GetOspfIfTable get loclTable
 func GetOspfIfTable(ip string, communit string) (ips []*OspfItem, err error) {
 	oids := []string{OspfIfIPAddressOid, OspfIfAdminStatOid, OspfIfStateOid, OspfIfStatusOid}
 	tableRows, err := GetTable(ip, communit, oids)
@@ -82,26 +80,25 @@ func GetOspfIfTable(ip string, communit string) (ips []*OspfItem, err error) {
 
 //GetOspfNbrTable get Nbr table
 func GetOspfNbrTable(ip string, communit string) (rs []*OspfNbrItem, err error) {
-	oids := []string{OspfNbrIpAddrOid, OspfNbrRtrIdOid, OspfNbrStateOid}
+	oids := []string{OspfNbrIPAddrOid, OspfNbrRtrIDOid, OspfNbrStateOid}
 	tableRows, err := GetTable(ip, communit, oids)
 	if err != nil {
 		return
 	}
 	for _, row := range tableRows {
 		item := new(OspfNbrItem)
-		item.NbrIPAddress = GetSnmpString(row[OspfNbrIpAddrOid])
-		item.NbrRtrID = GetSnmpString(row[OspfNbrRtrIdOid])
+		item.NbrIPAddress = GetSnmpString(row[OspfNbrIPAddrOid])
+		item.NbrRtrID = GetSnmpString(row[OspfNbrRtrIDOid])
 		item.NbrState = GetSnmpInt(row[OspfNbrStateOid])
 		rs = append(rs, item)
 	}
 	return
 }
 
-//NbrStateStr
+//NbrStateStr RT
 func (o *OspfNbrItem) NbrStateStr() string {
 	if o.NbrState > 0 {
 		return NbrState[o.NbrState-1]
-	} else {
-		return "invalid value"
 	}
+	return "invalid value"
 }
