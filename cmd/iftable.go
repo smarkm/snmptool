@@ -31,7 +31,7 @@ var iftableCmd = &cobra.Command{
 	Short: "Show Iftable brief information",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		ports, err := snmp.GetPortsInformation(IP, Community)
+		ports, err := snmp.GetPortsInformation(IP, Community, ParseSNMPVer())
 		if err != nil {
 			log.Println(err)
 		} else {

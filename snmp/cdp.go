@@ -1,5 +1,7 @@
 package snmp
 
+import g "github.com/soniah/gosnmp"
+
 //Const
 const (
 	CdpInterfaceIfIndexOid       = ".1.3.6.1.4.1.9.9.23.1.1.1.1.1"
@@ -34,9 +36,9 @@ func (i *CDPItem) ParseEnable() string {
 }
 
 //GetCDPTable get loclTable
-func GetCDPTable(ip string, communit string) (ips []*CDPItem, err error) {
+func GetCDPTable(ip string, communit string, ver g.SnmpVersion) (ips []*CDPItem, err error) {
 	oids := []string{CdpInterfaceIfIndexOid, CdpInterfaceIfEnableOid, CdpInterfaceIfMsgIntervalOid, CdpInterfaceIfGroupOid, CdpInterfaceIfPortOid, CdpInterfaceIfNameOid}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return
 	}

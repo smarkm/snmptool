@@ -31,7 +31,7 @@ var storageCmd = &cobra.Command{
 	Short: "Show storage biref information",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetWinStorage(IP, Community)
+		items, err := snmp.GetWinStorage(IP, Community, ParseSNMPVer())
 		if err != nil {
 			log.Println(err)
 		} else {

@@ -5,21 +5,22 @@ import (
 	"strconv"
 
 	"github.com/smarkm/snmptool/snmp/model"
+	g "github.com/soniah/gosnmp"
 )
 
 //GetSystem get base system information
-func GetSystem(ip string, communit string) (d model.Device, e error) {
-	return GetDeviceInfo(ip, communit)
+func GetSystem(ip string, communit string, ver g.SnmpVersion) (d model.Device, e error) {
+	return GetDeviceInfo(ip, communit, ver)
 }
 
 //Ping snmp pring
-func Ping(ip string, communit string) (d model.Device, e error) {
-	return GetSystem(ip, communit)
+func Ping(ip string, communit string, ver g.SnmpVersion) (d model.Device, e error) {
+	return GetSystem(ip, communit, ver)
 }
 
 //GetHostName RT
-func GetHostName(ip string, community string) (host string, err error) {
-	device, err := GetSystem(ip, community)
+func GetHostName(ip string, community string, ver g.SnmpVersion) (host string, err error) {
+	device, err := GetSystem(ip, community, ver)
 	if err != nil {
 		return "", err
 	}
@@ -27,8 +28,8 @@ func GetHostName(ip string, community string) (host string, err error) {
 }
 
 //GetDeviceInfo get base system information
-func GetDeviceInfo(ip string, communit string) (d model.Device, err error) {
-	s := NewSNMP(ip, communit)
+func GetDeviceInfo(ip string, communit string, ver g.SnmpVersion) (d model.Device, err error) {
+	s := NewSNMP(ip, communit, ver)
 	err = s.Connect()
 	if err != nil {
 		return

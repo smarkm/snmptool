@@ -50,7 +50,7 @@ func init() {
 	interfaceCmd.MarkFlagRequired("index")
 }
 func showOnePortInformation(ip, community, index string) (err error) {
-	port, err := snmp.GetPortInformation(ip, community, index)
+	port, err := snmp.GetPortInformation(ip, community, index, ParseSNMPVer())
 	if err != nil {
 		log.Println(err)
 	} else {
@@ -62,7 +62,7 @@ func showOnePortInformation(ip, community, index string) (err error) {
 }
 
 func showAllPortsInformation(ip, community string) (err error) {
-	ports, err := snmp.GetPortsInformation(ip, community)
+	ports, err := snmp.GetPortsInformation(ip, community, ParseSNMPVer())
 	if err != nil {
 		log.Println(err)
 		return

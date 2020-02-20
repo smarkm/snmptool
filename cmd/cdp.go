@@ -31,7 +31,7 @@ var cdpCmd = &cobra.Command{
 	Short: "Show CDP brief infromation",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetCDPTable(IP, Community)
+		items, err := snmp.GetCDPTable(IP, Community, ParseSNMPVer())
 		if err != nil {
 			log.Println(err)
 		} else {

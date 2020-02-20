@@ -1,5 +1,7 @@
 package snmp
 
+import g "github.com/soniah/gosnmp"
+
 //BGP oids
 const (
 	BgpLocalAS = ".3.6.1.2.1.15.2.0"
@@ -46,8 +48,8 @@ func (p *BGPPeer) PeerStateStr() string {
 }
 
 //GetLocalAS get local as
-func GetLocalAS(ip, community string) (as int, err error) {
-	pdu, err := GetOne(ip, community, BgpLocalAS)
+func GetLocalAS(ip, community string, ver g.SnmpVersion) (as int, err error) {
+	pdu, err := GetOne(ip, community, BgpLocalAS, ver)
 	if err != nil {
 		return
 	}
@@ -56,10 +58,10 @@ func GetLocalAS(ip, community string) (as int, err error) {
 }
 
 //GetBGPPeerTable get Nbr table
-func GetBGPPeerTable(ip string, communit string) (rs []*BGPPeer, err error) {
+func GetBGPPeerTable(ip string, communit string, ver g.SnmpVersion) (rs []*BGPPeer, err error) {
 	oids := []string{BgpPeerLocalAddrOid, BgpPeerLocalPortOid, BgpPeerRemoteAddrOid,
 		BgpPeerRemotePortOid, BgpPeerRemoteASOid, BgpPeerStateOid}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return
 	}

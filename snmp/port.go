@@ -5,6 +5,7 @@ import (
 
 	uc "github.com/smarkm/golang-underscore"
 	"github.com/smarkm/snmptool/snmp/model"
+	g "github.com/soniah/gosnmp"
 )
 
 //IfTable
@@ -68,9 +69,9 @@ func init() {
 }
 
 //GetPortsInformation get basic port information
-func GetPortsInformation(ip string, communit string) (ports map[int]*model.Port, err error) {
+func GetPortsInformation(ip string, communit string, ver g.SnmpVersion) (ports map[int]*model.Port, err error) {
 	oids := []string{IfIndex, IfDescr, IfAdminStatus, IfOperStatus, IfMtu, IfSpeed, IfType, IfPhysAddress}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return ports, err
 	}
@@ -91,9 +92,9 @@ func GetPortsInformation(ip string, communit string) (ports map[int]*model.Port,
 }
 
 //GetIPTable get basic port information
-func GetIPTable(ip string, communit string) (ips map[int]string, err error) {
+func GetIPTable(ip string, communit string, ver g.SnmpVersion) (ips map[int]string, err error) {
 	oids := []string{ipAdEntAddr, ipAdEntIfIndex}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return ips, err
 	}
@@ -106,9 +107,9 @@ func GetIPTable(ip string, communit string) (ips map[int]string, err error) {
 }
 
 //GetPortsStatus get basic port information
-func GetPortsStatus(ip string, communit string) (ports map[int]*model.Port, err error) {
+func GetPortsStatus(ip string, communit string, ver g.SnmpVersion) (ports map[int]*model.Port, err error) {
 	oids := []string{IfIndex, IfAdminStatus, IfOperStatus}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return ports, err
 	}
@@ -124,8 +125,8 @@ func GetPortsStatus(ip string, communit string) (ports map[int]*model.Port, err 
 }
 
 //GetPortInformation device,communit,index string
-func GetPortInformation(ip, communit, index string) (port *model.Port, err error) {
-	s := NewSNMP(ip, communit)
+func GetPortInformation(ip, communit, index string, ver g.SnmpVersion) (port *model.Port, err error) {
+	s := NewSNMP(ip, communit, ver)
 	err = s.Connect()
 	if err != nil {
 		return

@@ -1,5 +1,7 @@
 package snmp
 
+import g "github.com/soniah/gosnmp"
+
 //OspfIfTable oids
 const (
 	OspfIfIPAddressOid = ".1.3.6.1.2.1.14.7.1.1"
@@ -54,9 +56,9 @@ func (o *OspfItem) AdminStateStr() string {
 }
 
 //GetOspfIfTable get loclTable
-func GetOspfIfTable(ip string, communit string) (ips []*OspfItem, err error) {
+func GetOspfIfTable(ip string, communit string, ver g.SnmpVersion) (ips []*OspfItem, err error) {
 	oids := []string{OspfIfIPAddressOid, OspfIfAdminStatOid, OspfIfStateOid, OspfIfStatusOid}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return
 	}
@@ -79,9 +81,9 @@ func GetOspfIfTable(ip string, communit string) (ips []*OspfItem, err error) {
 }
 
 //GetOspfNbrTable get Nbr table
-func GetOspfNbrTable(ip string, communit string) (rs []*OspfNbrItem, err error) {
+func GetOspfNbrTable(ip string, communit string, ver g.SnmpVersion) (rs []*OspfNbrItem, err error) {
 	oids := []string{OspfNbrIPAddrOid, OspfNbrRtrIDOid, OspfNbrStateOid}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return
 	}

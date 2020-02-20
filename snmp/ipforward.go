@@ -1,5 +1,7 @@
 package snmp
 
+import g "github.com/soniah/gosnmp"
+
 //IPforward table itme ,.1.3.6.1.2.1.4.24.2
 const (
 	IPForwardDest    = ".1.3.6.1.2.1.4.24.2.1.1"
@@ -17,9 +19,9 @@ type IPForwardItem struct {
 }
 
 //GetIPForwardTable get loclTable
-func GetIPForwardTable(ip string, communit string) (items []*IPForwardItem, err error) {
+func GetIPForwardTable(ip string, communit string, ver g.SnmpVersion) (items []*IPForwardItem, err error) {
 	oids := []string{IPForwardDest, IPForwardMask, IPForwardNextHop, IPForwardIfIndex}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return
 	}

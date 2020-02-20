@@ -1,5 +1,7 @@
 package snmp
 
+import g "github.com/soniah/gosnmp"
+
 //Const
 const (
 	WinStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3"
@@ -17,9 +19,9 @@ type WinStorage struct {
 }
 
 //GetWinStorage get loclTable
-func GetWinStorage(ip string, communit string) (table []*WinStorage, err error) {
+func GetWinStorage(ip string, communit string, ver g.SnmpVersion) (table []*WinStorage, err error) {
 	oids := []string{WinStorageDescr, WinStorageUnits, WinStorageSize, WinStorageUsed}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return
 	}

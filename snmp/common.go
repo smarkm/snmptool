@@ -23,6 +23,11 @@ const (
 	InvalidValue = "invalid value"
 )
 
+//Common set
+var (
+	SNMPVersion = g.Version2c
+)
+
 func init() {
 	OIDs["sysObjectID"] = SysObjectID
 	OIDs["sysDescr"] = SysDescr
@@ -35,11 +40,11 @@ func init() {
 }
 
 //NewSNMP get a snmp instance
-func NewSNMP(target string, community string) (s *g.GoSNMP) {
+func NewSNMP(target string, community string, ver g.SnmpVersion) (s *g.GoSNMP) {
 	s = &g.GoSNMP{
 		Port:      161,
 		Community: community,
-		Version:   g.Version2c,
+		Version:   ver,
 		Timeout:   time.Duration(2) * time.Second,
 		Retries:   3,
 		MaxOids:   g.MaxOids,
@@ -49,8 +54,8 @@ func NewSNMP(target string, community string) (s *g.GoSNMP) {
 }
 
 //GetTable implement by BulkWalkAll
-func GetTable(ip string, communit string, oids []string) (tableRows map[string](map[string]g.SnmpPDU), e error) {
-	s := NewSNMP(ip, communit)
+func GetTable(ip string, communit string, ver g.SnmpVersion, oids []string) (tableRows map[string](map[string]g.SnmpPDU), e error) {
+	s := NewSNMP(ip, communit, ver)
 	err := s.Connect()
 	if err != nil {
 		return
@@ -78,8 +83,8 @@ func GetTable(ip string, communit string, oids []string) (tableRows map[string](
 }
 
 //GetOne ip,comunity,oid string
-func GetOne(ip, community, oid string) (rs g.SnmpPDU, err error) {
-	s := NewSNMP(ip, community)
+func GetOne(ip, community, oid string, ver g.SnmpVersion) (rs g.SnmpPDU, err error) {
+	s := NewSNMP(ip, community, ver)
 	err = s.Connect()
 	if err != nil {
 		return

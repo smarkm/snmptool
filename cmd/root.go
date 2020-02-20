@@ -20,6 +20,8 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/soniah/gosnmp"
+
 	"github.com/smarkm/snmptool/snmp"
 	"github.com/spf13/cobra"
 
@@ -31,13 +33,13 @@ const version = "V0.0.2"
 
 var cfgFile string
 
-//IP target ip
-var IP string
-
-//Community read  community
-var Community string
-
-var oid string
+//Common var
+var (
+	IP        string
+	Community string
+	snmpver   string
+	oid       string
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -59,15 +61,6 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	UseGlobleFlags(rootCmd)
-
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	//rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.snmptool.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
 
 }
 
@@ -101,6 +94,8 @@ func initConfig() {
 func UseGlobleFlags(cmd *cobra.Command) {
 	cmd.Flags().StringVarP(&IP, "ip", "i", "127.0.0.1", "target ip")
 	cmd.Flags().StringVarP(&Community, "community", "c", "public", "community")
+	cmd.Flags().StringVarP(&snmpver, "snmpver", "v", "2c", "snmp version")
+
 }
 
 //i2S string
@@ -115,4 +110,18 @@ func ParseOIDName(oid string) (target string) {
 		target = oid
 	}
 	return
+}
+
+//ParseSNMPVer RT
+func ParseSNMPVer() gosnmp.SnmpVersion {
+	switch snmpver {
+	case "1":
+		return gosnmp.Version1
+	case "2c":
+		return gosnmp.Version2c
+	case "3":
+		return gosnmp.Version3
+
+	}
+	return gosnmp.Version2c
 }

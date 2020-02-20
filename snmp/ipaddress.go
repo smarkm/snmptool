@@ -3,6 +3,8 @@ package snmp
 import (
 	"log"
 	"strconv"
+
+	g "github.com/soniah/gosnmp"
 )
 
 //Oid of ipAddTable[.1.3.6.1.2.1.4.20]
@@ -21,9 +23,9 @@ type IPAddr struct {
 }
 
 //GetIPAddrTable get loclTable
-func GetIPAddrTable(ip string, communit string) (ips []*IPAddr, err error) {
+func GetIPAddrTable(ip string, communit string, ver g.SnmpVersion) (ips []*IPAddr, err error) {
 	oids := []string{OIDIpAdEntAddr, OIDIpAdEntIfIndex, OIDIpAdEntNetMask}
-	tableRows, err := GetTable(ip, communit, oids)
+	tableRows, err := GetTable(ip, communit, ver, oids)
 	if err != nil {
 		return
 	}
@@ -35,7 +37,7 @@ func GetIPAddrTable(ip string, communit string) (ips []*IPAddr, err error) {
 		ips = append(ips, item)
 	}
 	for _, ipa := range ips {
-		v, err := GetOne(ip, communit, IfDescr+"."+strconv.Itoa(ipa.IfIndex))
+		v, err := GetOne(ip, communit, IfDescr+"."+strconv.Itoa(ipa.IfIndex), ver)
 		if err != nil {
 			log.Println(err.Error())
 		} else {
