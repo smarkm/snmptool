@@ -47,6 +47,5 @@ var storageCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(storageCmd)
-	UseGlobleFlags(storageCmd)
 
 }

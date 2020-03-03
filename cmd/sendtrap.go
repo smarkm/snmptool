@@ -17,35 +17,21 @@ package cmd
 
 import (
 	"fmt"
-	"log"
-	"strconv"
-	"strings"
 
-	"github.com/smarkm/snmptool/snmp"
 	"github.com/spf13/cobra"
 )
 
-// ospfCmd represents the ospf command
-var ospfCmd = &cobra.Command{
-	Use:   "ospf",
-	Short: "Show OSPF biref information",
+// sendtrapCmd represents the sendtrap command
+var sendtrapCmd = &cobra.Command{
+	Use:   "sendtrap",
+	Short: "Send trap",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetOspfIfTable(IP, Community, ParseSNMPVer())
-		if err != nil {
-			log.Println(err)
-		} else {
-			fmt.Println("IP Address\t AdminState\t State\t ")
-			for _, item := range items {
-				d := []string{item.OspfIfIPAddress, item.AdminStateStr(), item.StateStr()}
-				fmt.Println(strings.Join(d, "\t"))
-			}
-			fmt.Println("Total: " + strconv.Itoa(len(items)) + " rows")
-		}
+		fmt.Println(IP, Community)
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(ospfCmd)
+	rootCmd.AddCommand(sendtrapCmd)
 
 }

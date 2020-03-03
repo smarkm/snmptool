@@ -47,5 +47,5 @@ var lldpCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(lldpCmd)
-	UseGlobleFlags(lldpCmd)
+
 }

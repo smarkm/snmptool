@@ -41,7 +41,6 @@ var getCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(getCmd)
-	UseGlobleFlags(getCmd)
 	getCmd.Flags().StringVarP(&oid, "oid", "o", "", "target oid")
 	getCmd.MarkFlagRequired("oid")
 

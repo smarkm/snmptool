@@ -45,7 +45,6 @@ var interfaceCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(interfaceCmd)
-	UseGlobleFlags(interfaceCmd)
 	interfaceCmd.Flags().StringVarP(&index, "index", "", "", "ifindex")
 	interfaceCmd.MarkFlagRequired("index")
 }

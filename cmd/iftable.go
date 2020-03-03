@@ -48,6 +48,5 @@ var iftableCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(iftableCmd)
-	UseGlobleFlags(iftableCmd)
 
 }

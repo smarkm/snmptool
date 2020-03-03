@@ -48,7 +48,6 @@ var walkCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(walkCmd)
-	UseGlobleFlags(walkCmd)
 	walkCmd.Flags().StringVarP(&oid, "oid", "o", "", "root oid")
 	getCmd.MarkFlagRequired("oid")
 }

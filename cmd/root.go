@@ -60,7 +60,9 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	UseGlobleFlags(rootCmd)
+	rootCmd.PersistentFlags().StringVarP(&IP, "ip", "i", "127.0.0.1", "target ip")
+	rootCmd.PersistentFlags().StringVarP(&Community, "community", "c", "public", "community")
+	rootCmd.PersistentFlags().StringVarP(&snmpver, "snmpver", "v", "2c", "snmp version")
 
 }
 
@@ -88,14 +90,6 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
-}
-
-//UseGlobleFlags use
-func UseGlobleFlags(cmd *cobra.Command) {
-	cmd.Flags().StringVarP(&IP, "ip", "i", "127.0.0.1", "target ip")
-	cmd.Flags().StringVarP(&Community, "community", "c", "public", "community")
-	cmd.Flags().StringVarP(&snmpver, "snmpver", "v", "2c", "snmp version")
-
 }
 
 //i2S string

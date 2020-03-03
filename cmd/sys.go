@@ -44,5 +44,4 @@ var sysCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(sysCmd)
-	UseGlobleFlags(sysCmd)
 }
