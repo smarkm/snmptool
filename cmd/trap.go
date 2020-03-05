@@ -16,13 +16,12 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/smarkm/snmptool/snmp"
 	"github.com/spf13/cobra"
 )
-
-var port string
 
 // trapCmd represents the trap command
 var trapCmd = &cobra.Command{
@@ -30,8 +29,8 @@ var trapCmd = &cobra.Command{
 	Short: "Start trap receiver",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Printf("will start trap receiver on port %s ...\n", port)
-		r := &snmp.TrapReciver{Address: "0.0.0.0:" + port}
+		log.Printf("will start trap receiver on port %d ...\n", port)
+		r := &snmp.TrapReciver{Address: fmt.Sprintf("0.0.0.0:%d", port)}
 		defer r.Close()
 		r.Start()
 	},
@@ -39,5 +38,5 @@ var trapCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(trapCmd)
-	trapCmd.Flags().StringVarP(&port, "port", "p", "162", "trap receiver port")
+	trapCmd.Flags().Uint16VarP(&port, "port", "p", 162, "trap receiver port")
 }

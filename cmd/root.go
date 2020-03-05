@@ -39,6 +39,7 @@ var (
 	Community string
 	snmpver   string
 	oid       string
+	port      uint16
 )
 
 // rootCmd represents the base command when called without any subcommands
