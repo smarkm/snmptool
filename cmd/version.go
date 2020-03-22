@@ -28,6 +28,7 @@ var versionCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("version: "+version)
+		fmt.Println("\nProject: https://github.com/smarkm/snmptool")
 	},
 }
 
