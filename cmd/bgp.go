@@ -17,11 +17,11 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/spf13/cobra"
 )
 
@@ -33,7 +33,7 @@ var bgpCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		items, err := snmp.GetBGPPeerTable(IP, Community, ParseSNMPVer())
 		if err != nil {
-			log.Println(err)
+			util.HandleError(err)
 		} else {
 			fmt.Println("LocalAddr\t LocalPort\t RemoteAddr\t  RemotePort\t RemoteAS\t PeerState\t")
 			for _, item := range items {

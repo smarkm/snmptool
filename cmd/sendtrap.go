@@ -16,9 +16,9 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
 	"log"
 
+	"github.com/smarkm/snmptool/snmp/util"
 	g "github.com/soniah/gosnmp"
 	"github.com/spf13/cobra"
 )
@@ -43,7 +43,7 @@ snmptool sendtrap -i target-ip -p target-port [-v 1|2] -t [coldStart|warmStart|l
 
 		err := g.Default.Connect()
 		if err != nil {
-			fmt.Println(err.Error())
+			util.HandleError(err)
 		}
 		defer g.Default.Conn.Close()
 

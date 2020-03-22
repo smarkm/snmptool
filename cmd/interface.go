@@ -17,11 +17,11 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/spf13/cobra"
 )
 
@@ -51,7 +51,7 @@ func init() {
 func showOnePortInformation(ip, community, index string) (err error) {
 	port, err := snmp.GetPortInformation(ip, community, index, ParseSNMPVer())
 	if err != nil {
-		log.Println(err)
+		util.HandleError(err)
 	} else {
 		header := []string{"Index", "Admin", "Oper", "Name", "Speed(bits)"}
 		fmt.Println(strings.Join(header, "\t"))
@@ -63,7 +63,7 @@ func showOnePortInformation(ip, community, index string) (err error) {
 func showAllPortsInformation(ip, community string) (err error) {
 	ports, err := snmp.GetPortsInformation(ip, community, ParseSNMPVer())
 	if err != nil {
-		log.Println(err)
+		util.HandleError(err)
 		return
 	} else {
 		header := []string{"Index", "Admin", "Oper", "Name", "Speed"}

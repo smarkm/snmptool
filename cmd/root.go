@@ -23,6 +23,7 @@ import (
 	"github.com/soniah/gosnmp"
 
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -76,7 +77,7 @@ func initConfig() {
 		// Find home directory.
 		home, err := homedir.Dir()
 		if err != nil {
-			fmt.Println(err)
+			util.HandleError(err)
 			os.Exit(1)
 		}
 

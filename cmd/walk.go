@@ -19,6 +19,7 @@ import (
 	"fmt"
 
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/soniah/gosnmp"
 	"github.com/spf13/cobra"
 )
@@ -41,7 +42,7 @@ var walkCmd = &cobra.Command{
 			return nil
 		})
 		if err != nil {
-			fmt.Println(err)
+			util.HandleError(err)
 		}
 	},
 }

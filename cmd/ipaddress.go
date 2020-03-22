@@ -17,11 +17,11 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/spf13/cobra"
 )
 
@@ -33,7 +33,7 @@ var ipaddressCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		items, err := snmp.GetIPAddrTable(IP, Community, ParseSNMPVer())
 		if err != nil {
-			log.Println(err)
+			util.HandleError(err)
 		} else {
 			fmt.Println("IP\t Netmask\t Index\t Descr")
 			for _, item := range items {

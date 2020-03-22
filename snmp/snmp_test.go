@@ -71,5 +71,5 @@ func TestGetIPForaordTable(t *testing.T) {
 	for _, item := range items {
 		log.Println(item)
 	}
-	log.Println(err)
+	util.HandleError(err)
 }

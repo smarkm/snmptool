@@ -3,7 +3,6 @@ package util
 import (
 	"bufio"
 	"encoding/csv"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -30,7 +29,7 @@ func init() {
 	return
 	csvFile, err := os.Open("config/dt.csv")
 	if err != nil {
-		fmt.Println(err)
+		HandleError(err)
 		return
 	}
 	reader := csv.NewReader(bufio.NewReader(csvFile))

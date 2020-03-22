@@ -1,9 +1,9 @@
 package snmp
 
 import (
-	"log"
 	"strconv"
 
+	"github.com/smarkm/snmptool/snmp/util"
 	g "github.com/soniah/gosnmp"
 )
 
@@ -39,7 +39,7 @@ func GetIPAddrTable(ip string, communit string, ver g.SnmpVersion) (ips []*IPAdd
 	for _, ipa := range ips {
 		v, err := GetOne(ip, communit, IfDescr+"."+strconv.Itoa(ipa.IfIndex), ver)
 		if err != nil {
-			log.Println(err.Error())
+			util.HandleError(err)
 		} else {
 			ipa.IfDesc = GetSnmpString(v)
 		}

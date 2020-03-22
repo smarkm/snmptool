@@ -19,7 +19,7 @@ import (
 	"fmt"
 
 	"github.com/smarkm/snmptool/snmp"
-
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/spf13/cobra"
 )
 
@@ -32,7 +32,7 @@ var getCmd = &cobra.Command{
 		target := ParseOIDName(oid)
 		rs, err := snmp.GetOne(IP, Community, target, ParseSNMPVer())
 		if err != nil {
-			fmt.Println(err)
+			util.HandleError(err)
 			return
 		}
 		fmt.Println(snmp.GetSnmpString(rs))

@@ -17,7 +17,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/smarkm/snmptool/snmp"
@@ -33,7 +32,7 @@ var sysCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		d, err := snmp.GetSystem(IP, Community, ParseSNMPVer())
 		if err != nil {
-			log.Println(err)
+			util.HandleError(err)
 		} else {
 			data := []string{"sysName: " + d.Name, "sysDescr: " + d.Desc, "sysObjectID: " + d.OId + " (" + util.GetDeviceType(d.OId) + ")", "sysContract: " + d.Contract,
 				"sysLocation: " + d.Location, "sysServices: " + d.Services, "sysUpTime: " + d.UpTime}

@@ -17,11 +17,11 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/spf13/cobra"
 )
 
@@ -33,7 +33,7 @@ var iftableCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		ports, err := snmp.GetPortsInformation(IP, Community, ParseSNMPVer())
 		if err != nil {
-			log.Println(err)
+			util.HandleError(err)
 		} else {
 			header := []string{"Index", "Admin", "Oper", "Name", "Speed"}
 			fmt.Println(strings.Join(header, "\t"))

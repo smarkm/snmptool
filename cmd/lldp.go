@@ -17,11 +17,11 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
 	"github.com/smarkm/snmptool/snmp"
+	"github.com/smarkm/snmptool/snmp/util"
 	"github.com/spf13/cobra"
 )
 
@@ -33,7 +33,7 @@ var lldpCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		items, err := snmp.GetLLdpLocalTable(IP, Community, ParseSNMPVer())
 		if err != nil {
-			log.Println(err)
+			util.HandleError(err)
 		} else {
 			fmt.Println("LldpLocPortNum\t LldpLocPortID\t LldpLocPortIDSubtype\t LldpLocPortDesc")
 			for _, item := range items {
