@@ -1,4 +1,4 @@
 /vendor/*
 !/vendor/vendor.json
 *.exe
-snmptool
+tmp/

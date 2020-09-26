@@ -1,1 +1,1 @@
-go build -o snmp.exe .
+go build -o tmp/snmp.exe .
