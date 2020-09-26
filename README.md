@@ -7,8 +7,8 @@
 
 ## Download
 download the last version
-* Linux  : [snmptool](https://github.com/smarkm/snmptool/releases/download/v0.0.3/snmp)
-* Window : [snmptool.exe](https://github.com/smarkm/snmptool/releases/download/v0.0.3/snmp.exe)
+* Linux  : [snmp](https://github.com/smarkm/snmptool/releases/download/v0.0.3/snmp)
+* Window : [snmp.exe](https://github.com/smarkm/snmptool/releases/download/v0.0.3/snmp.exe)
 
 ## Usage
 ![Show case](demo-v0.0.2.gif)
