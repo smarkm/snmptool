@@ -30,7 +30,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const version = "V0.0.2"
+const version = "V0.0.3"
 
 var cfgFile string
 
@@ -45,7 +45,7 @@ var (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "snmptool",
+	Use:   "snmp",
 	Short: "Simple snmp tool",
 	Long:  ``,
 	// Uncomment the following line if your bare application
