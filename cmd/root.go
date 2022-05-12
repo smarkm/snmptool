@@ -45,7 +45,7 @@ var (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "snmp",
+	Use:   "st",
 	Short: "Simple snmp tool",
 	Long:  ``,
 	// Uncomment the following line if your bare application
@@ -64,7 +64,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVarP(&IP, "ip", "i", "127.0.0.1", "target ip")
 	rootCmd.PersistentFlags().StringVarP(&Community, "community", "c", "public", "community")
-	rootCmd.PersistentFlags().StringVarP(&snmpver, "snmpver", "v", "2c", "snmp version")
+	rootCmd.PersistentFlags().StringVarP(&snmpver, "snmpver", "v", "2c", "snmp version default is '2c'")
 
 }
 

@@ -5,6 +5,8 @@ import (
 	"log"
 	"testing"
 
+	"github.com/smarkm/snmptool/snmp/util"
+
 	"github.com/soniah/gosnmp"
 )
 
@@ -27,6 +29,7 @@ func TestSnmpClient_Get(t *testing.T) {
 func TestSnmpGetTable(t *testing.T) {
 	oids := []string{IfIndex, IfMtu}
 	tableRows, _ := GetTable(local, communit, snmpver, oids)
+	log.Println(len(tableRows))
 	fmt.Println(len(tableRows))
 }
 func TestGetPortInformation(t *testing.T) {

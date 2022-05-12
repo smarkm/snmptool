@@ -1,1 +1,1 @@
-go build -o tmp/snmp .
+go build -o st .

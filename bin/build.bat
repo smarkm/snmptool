@@ -1,1 +1,1 @@
-go build -o tmp/snmp.exe .
+go build -o st.exe .
