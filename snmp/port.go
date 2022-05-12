@@ -69,9 +69,9 @@ func init() {
 }
 
 //GetPortsInformation get basic port information
-func GetPortsInformation(ip string, communit string, ver g.SnmpVersion) (ports map[int]*model.Port, err error) {
+func GetPortsInformation(s g.GoSNMP) (ports map[int]*model.Port, err error) {
 	oids := []string{IfIndex, IfDescr, IfAdminStatus, IfOperStatus, IfMtu, IfSpeed, IfType, IfPhysAddress}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return ports, err
 	}
@@ -92,9 +92,9 @@ func GetPortsInformation(ip string, communit string, ver g.SnmpVersion) (ports m
 }
 
 //GetIPTable get basic port information
-func GetIPTable(ip string, communit string, ver g.SnmpVersion) (ips map[int]string, err error) {
+func GetIPTable(s g.GoSNMP) (ips map[int]string, err error) {
 	oids := []string{ipAdEntAddr, ipAdEntIfIndex}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return ips, err
 	}
@@ -107,9 +107,9 @@ func GetIPTable(ip string, communit string, ver g.SnmpVersion) (ips map[int]stri
 }
 
 //GetPortsStatus get basic port information
-func GetPortsStatus(ip string, communit string, ver g.SnmpVersion) (ports map[int]*model.Port, err error) {
+func GetPortsStatus(s g.GoSNMP) (ports map[int]*model.Port, err error) {
 	oids := []string{IfIndex, IfAdminStatus, IfOperStatus}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return ports, err
 	}

@@ -9,18 +9,18 @@ import (
 )
 
 //GetSystem get base system information
-func GetSystem(ip string, communit string, ver g.SnmpVersion) (d model.Device, e error) {
-	return GetDeviceInfo(ip, communit, ver)
+func GetSystem(s g.GoSNMP) (d model.Device, e error) {
+	return GetDeviceInfo(s)
 }
 
 //Ping snmp pring
-func Ping(ip string, communit string, ver g.SnmpVersion) (d model.Device, e error) {
-	return GetSystem(ip, communit, ver)
+func Ping(s g.GoSNMP) (d model.Device, e error) {
+	return GetSystem(s)
 }
 
 //GetHostName RT
-func GetHostName(ip string, community string, ver g.SnmpVersion) (host string, err error) {
-	device, err := GetSystem(ip, community, ver)
+func GetHostName(s g.GoSNMP) (host string, err error) {
+	device, err := GetSystem(s)
 	if err != nil {
 		return "", err
 	}
@@ -28,8 +28,7 @@ func GetHostName(ip string, community string, ver g.SnmpVersion) (host string, e
 }
 
 //GetDeviceInfo get base system information
-func GetDeviceInfo(ip string, communit string, ver g.SnmpVersion) (d model.Device, err error) {
-	s := NewSNMP(ip, communit, ver)
+func GetDeviceInfo(s g.GoSNMP) (d model.Device, err error) {
 	err = s.Connect()
 	if err != nil {
 		return
@@ -64,6 +63,6 @@ func GetDeviceInfo(ip string, communit string, ver g.SnmpVersion) (d model.Devic
 			d.Services = strconv.Itoa(bytes)
 		}
 	}
-	d.IP = ip
+	d.IP = s.Target
 	return
 }

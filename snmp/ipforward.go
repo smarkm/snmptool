@@ -19,9 +19,9 @@ type IPForwardItem struct {
 }
 
 //GetIPForwardTable get loclTable
-func GetIPForwardTable(ip string, communit string, ver g.SnmpVersion) (items []*IPForwardItem, err error) {
+func GetIPForwardTable(s g.GoSNMP) (items []*IPForwardItem, err error) {
 	oids := []string{IPForwardDest, IPForwardMask, IPForwardNextHop, IPForwardIfIndex}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}

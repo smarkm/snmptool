@@ -19,9 +19,9 @@ type WinStorage struct {
 }
 
 //GetWinStorage get loclTable
-func GetWinStorage(ip string, communit string, ver g.SnmpVersion) (table []*WinStorage, err error) {
+func GetWinStorage(s g.GoSNMP) (table []*WinStorage, err error) {
 	oids := []string{WinStorageDescr, WinStorageUnits, WinStorageSize, WinStorageUsed}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}

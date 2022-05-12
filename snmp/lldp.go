@@ -63,9 +63,9 @@ func (l *LLdpRem) GetRemIndex() string {
 }
 
 //GetLLdpLocalTable get loclTable
-func GetLLdpLocalTable(ip string, communit string, ver g.SnmpVersion) (lldpls []*LLdpLoc, err error) {
+func GetLLdpLocalTable(s g.GoSNMP) (lldpls []*LLdpLoc, err error) {
 	oids := []string{LldpLocPortNum, LldpLocPortID, LldpLocPortDesc, LldpLocPortIDSubtype}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}
@@ -81,9 +81,9 @@ func GetLLdpLocalTable(ip string, communit string, ver g.SnmpVersion) (lldpls []
 }
 
 //GetLLdpRemTable get remote table
-func GetLLdpRemTable(ip string, communit string, ver g.SnmpVersion) (lldpls []*LLdpRem, err error) {
+func GetLLdpRemTable(s g.GoSNMP) (lldpls []*LLdpRem, err error) {
 	oids := []string{LLdpRemSysName, LLdpRemPortID, LLdpRemPortDesc}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}

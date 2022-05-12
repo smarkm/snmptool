@@ -56,9 +56,9 @@ func (o *OspfItem) AdminStateStr() string {
 }
 
 //GetOspfIfTable get loclTable
-func GetOspfIfTable(ip string, communit string, ver g.SnmpVersion) (ips []*OspfItem, err error) {
+func GetOspfIfTable(s g.GoSNMP) (ips []*OspfItem, err error) {
 	oids := []string{OspfIfIPAddressOid, OspfIfAdminStatOid, OspfIfStateOid, OspfIfStatusOid}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}
@@ -81,9 +81,9 @@ func GetOspfIfTable(ip string, communit string, ver g.SnmpVersion) (ips []*OspfI
 }
 
 //GetOspfNbrTable get Nbr table
-func GetOspfNbrTable(ip string, communit string, ver g.SnmpVersion) (rs []*OspfNbrItem, err error) {
+func GetOspfNbrTable(s g.GoSNMP) (rs []*OspfNbrItem, err error) {
 	oids := []string{OspfNbrIPAddrOid, OspfNbrRtrIDOid, OspfNbrStateOid}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}

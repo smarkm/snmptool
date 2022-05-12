@@ -31,7 +31,7 @@ var ipaddressCmd = &cobra.Command{
 	Short: "Show ip address table",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetIPAddrTable(IP, Community, ParseSNMPVer())
+		items, err := snmp.GetIPAddrTable(snmp.NewSNMP(IP, Community, ParseSNMPVer()))
 		if err != nil {
 			util.HandleError(err)
 		} else {

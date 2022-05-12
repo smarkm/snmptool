@@ -36,9 +36,9 @@ func (i *CDPItem) ParseEnable() string {
 }
 
 //GetCDPTable get loclTable
-func GetCDPTable(ip string, communit string, ver g.SnmpVersion) (ips []*CDPItem, err error) {
+func GetCDPTable(s g.GoSNMP) (ips []*CDPItem, err error) {
 	oids := []string{CdpInterfaceIfIndexOid, CdpInterfaceIfEnableOid, CdpInterfaceIfMsgIntervalOid, CdpInterfaceIfGroupOid, CdpInterfaceIfPortOid, CdpInterfaceIfNameOid}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}

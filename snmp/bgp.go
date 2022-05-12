@@ -48,8 +48,8 @@ func (p *BGPPeer) PeerStateStr() string {
 }
 
 //GetLocalAS get local as
-func GetLocalAS(ip, community string, ver g.SnmpVersion) (as int, err error) {
-	pdu, err := GetOne(ip, community, BgpLocalAS, ver)
+func GetLocalAS(s g.GoSNMP) (as int, err error) {
+	pdu, err := GetOne(s, BgpLocalAS)
 	if err != nil {
 		return
 	}
@@ -58,10 +58,10 @@ func GetLocalAS(ip, community string, ver g.SnmpVersion) (as int, err error) {
 }
 
 //GetBGPPeerTable get Nbr table
-func GetBGPPeerTable(ip string, communit string, ver g.SnmpVersion) (rs []*BGPPeer, err error) {
+func GetBGPPeerTable(s g.GoSNMP) (rs []*BGPPeer, err error) {
 	oids := []string{BgpPeerLocalAddrOid, BgpPeerLocalPortOid, BgpPeerRemoteAddrOid,
 		BgpPeerRemotePortOid, BgpPeerRemoteASOid, BgpPeerStateOid}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}

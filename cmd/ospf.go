@@ -31,7 +31,7 @@ var ospfCmd = &cobra.Command{
 	Short: "Show OSPF biref information",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetOspfIfTable(IP, Community, ParseSNMPVer())
+		items, err := snmp.GetOspfIfTable(snmp.NewSNMP(IP, Community, ParseSNMPVer()))
 		if err != nil {
 			util.HandleError(err)
 		} else {

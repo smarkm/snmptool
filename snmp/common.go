@@ -40,8 +40,8 @@ func init() {
 }
 
 //NewSNMP get a snmp instance
-func NewSNMP(target string, community string, ver g.SnmpVersion) (s *g.GoSNMP) {
-	s = &g.GoSNMP{
+func NewSNMP(target string, community string, ver g.SnmpVersion) (s g.GoSNMP) {
+	s = g.GoSNMP{
 		Port:      161,
 		Community: community,
 		Version:   ver,
@@ -54,8 +54,7 @@ func NewSNMP(target string, community string, ver g.SnmpVersion) (s *g.GoSNMP) {
 }
 
 //GetTable implement by BulkWalkAll
-func GetTable(ip string, communit string, ver g.SnmpVersion, oids []string) (tableRows map[string](map[string]g.SnmpPDU), e error) {
-	s := NewSNMP(ip, communit, ver)
+func GetTable(s g.GoSNMP, oids []string) (tableRows map[string](map[string]g.SnmpPDU), e error) {
 	err := s.Connect()
 	if err != nil {
 		return
@@ -83,8 +82,7 @@ func GetTable(ip string, communit string, ver g.SnmpVersion, oids []string) (tab
 }
 
 //GetOne ip,comunity,oid string
-func GetOne(ip, community, oid string, ver g.SnmpVersion) (rs g.SnmpPDU, err error) {
-	s := NewSNMP(ip, community, ver)
+func GetOne(s g.GoSNMP, oid string) (rs g.SnmpPDU, err error) {
 	err = s.Connect()
 	if err != nil {
 		return

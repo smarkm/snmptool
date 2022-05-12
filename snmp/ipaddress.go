@@ -23,9 +23,9 @@ type IPAddr struct {
 }
 
 //GetIPAddrTable get loclTable
-func GetIPAddrTable(ip string, communit string, ver g.SnmpVersion) (ips []*IPAddr, err error) {
+func GetIPAddrTable(s g.GoSNMP) (ips []*IPAddr, err error) {
 	oids := []string{OIDIpAdEntAddr, OIDIpAdEntIfIndex, OIDIpAdEntNetMask}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}
@@ -37,7 +37,7 @@ func GetIPAddrTable(ip string, communit string, ver g.SnmpVersion) (ips []*IPAdd
 		ips = append(ips, item)
 	}
 	for _, ipa := range ips {
-		v, err := GetOne(ip, communit, IfDescr+"."+strconv.Itoa(ipa.IfIndex), ver)
+		v, err := GetOne(s, IfDescr+"."+strconv.Itoa(ipa.IfIndex))
 		if err != nil {
 			util.HandleError(err)
 		} else {

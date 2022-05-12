@@ -31,7 +31,7 @@ var lldpCmd = &cobra.Command{
 	Short: "Show LLDP brief information",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetLLdpLocalTable(IP, Community, ParseSNMPVer())
+		items, err := snmp.GetLLdpLocalTable(snmp.NewSNMP(IP, Community, ParseSNMPVer()))
 		if err != nil {
 			util.HandleError(err)
 		} else {

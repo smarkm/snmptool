@@ -61,7 +61,7 @@ func showOnePortInformation(ip, community, index string) (err error) {
 }
 
 func showAllPortsInformation(ip, community string) (err error) {
-	ports, err := snmp.GetPortsInformation(ip, community, ParseSNMPVer())
+	ports, err := snmp.GetPortsInformation(snmp.NewSNMP(IP, Community, ParseSNMPVer()))
 	if err != nil {
 		util.HandleError(err)
 		return

@@ -30,7 +30,7 @@ var sysCmd = &cobra.Command{
 	Short: "Show system brief information",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		d, err := snmp.GetSystem(IP, Community, ParseSNMPVer())
+		d, err := snmp.GetSystem(snmp.NewSNMP(IP, Community, ParseSNMPVer()))
 		if err != nil {
 			util.HandleError(err)
 		} else {

@@ -13,9 +13,9 @@ type HrProcessorLoad struct {
 }
 
 //GetHrProcessorLoad get loclTable
-func GetHrProcessorLoad(ip string, communit string, ver g.SnmpVersion) (table []*HrProcessorLoad, err error) {
+func GetHrProcessorLoad(s g.GoSNMP) (table []*HrProcessorLoad, err error) {
 	oids := []string{OIDHrProcessorLoad}
-	tableRows, err := GetTable(ip, communit, ver, oids)
+	tableRows, err := GetTable(s, oids)
 	if err != nil {
 		return
 	}
