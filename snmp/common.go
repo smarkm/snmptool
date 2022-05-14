@@ -2,7 +2,6 @@ package snmp
 
 import (
 	"fmt"
-	"time"
 
 	g "github.com/soniah/gosnmp"
 )
@@ -37,20 +36,6 @@ func init() {
 	OIDs["sysLocation"] = SysLocation
 	OIDs["sysServices"] = SysServices
 
-}
-
-//NewSNMP get a snmp instance
-func NewSNMP(target string, community string, ver g.SnmpVersion) (s g.GoSNMP) {
-	s = g.GoSNMP{
-		Port:      161,
-		Community: community,
-		Version:   ver,
-		Timeout:   time.Duration(2) * time.Second,
-		Retries:   3,
-		MaxOids:   g.MaxOids,
-		Target:    target,
-	}
-	return
 }
 
 //GetTable implement by BulkWalkAll

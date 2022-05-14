@@ -30,7 +30,7 @@ var walkCmd = &cobra.Command{
 	Short: "Execute SNMP WALK",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := snmp.NewSNMP(IP, Community, ParseSNMPVer())
+		s := getSNMPParams()
 		err := s.Connect()
 		if err != nil {
 			return

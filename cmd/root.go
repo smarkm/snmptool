@@ -19,11 +19,12 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-
-	"github.com/soniah/gosnmp"
+	"time"
 
 	"github.com/smarkm/snmptool/snmp"
 	"github.com/smarkm/snmptool/snmp/util"
+	"github.com/soniah/gosnmp"
+	g "github.com/soniah/gosnmp"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -41,6 +42,17 @@ var (
 	snmpver   string
 	oid       string
 	port      uint16
+	//v3 parameters
+	UserName     string
+	MsgFlags     g.SnmpV3MsgFlags
+	AuthProtocol g.SnmpV3AuthProtocol
+	AuthPass     string
+	PrivProtocol g.SnmpV3PrivProtocol
+	PrivPass     string
+
+	SecurityLevel   string
+	AuthProtocolStr string
+	PrivProtocolStr string
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -63,9 +75,70 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVarP(&IP, "ip", "i", "127.0.0.1", "target ip")
-	rootCmd.PersistentFlags().StringVarP(&Community, "community", "c", "public", "community")
-	rootCmd.PersistentFlags().StringVarP(&snmpver, "snmpver", "v", "2c", "snmp version default is '2c'")
+	rootCmd.Flags().StringVarP(&Community, "community", "c", "public", "community")
+	rootCmd.PersistentFlags().StringVarP(&snmpver, "version", "v", "2c", "snmp version default is '2c'")
+	rootCmd.PersistentFlags().StringVarP(&UserName, "username", "u", "", "username")
+	rootCmd.PersistentFlags().StringVarP(&SecurityLevel, "level", "l", "noAuthNoPriv", "security level (noAuthNoPriv|authNoPriv|authPriv)")
+	rootCmd.PersistentFlags().StringVarP(&AuthProtocolStr, "authProtocol", "a", "MD5", "authentication protocol (MD5|SHA)")
+	rootCmd.PersistentFlags().StringVarP(&AuthPass, "authPass", "A", "", "auth password")
+	rootCmd.PersistentFlags().StringVarP(&PrivProtocolStr, "privProtocol", "x", "DES", "privacy protocol (DES|AES)")
+	rootCmd.PersistentFlags().StringVarP(&PrivPass, "privPass", "X", "", "privacy password")
 
+}
+
+func getSNMPParams() g.GoSNMP {
+	msgFlags := g.AuthPriv
+	authProto := g.MD5
+	privProto := g.DES
+	v3Params := &g.UsmSecurityParameters{UserName: UserName}
+	switch SecurityLevel {
+	case "noAuthNoPriv":
+		msgFlags = g.NoAuthNoPriv
+	case "authNoPriv":
+		msgFlags = g.AuthNoPriv
+		v3Params.AuthenticationProtocol = authProto
+		v3Params.AuthenticationPassphrase = AuthPass
+	case "authPriv":
+		v3Params.AuthenticationProtocol = authProto
+		v3Params.AuthenticationPassphrase = AuthPass
+		v3Params.PrivacyProtocol = privProto
+		v3Params.PrivacyPassphrase = PrivPass
+	}
+
+	switch AuthProtocolStr {
+	case "SHA":
+		authProto = g.SHA
+	}
+	switch PrivProtocolStr {
+	case "AES":
+		privProto = g.AES
+	}
+
+	switch snmpver {
+	case "3":
+		return g.GoSNMP{
+			Target:             IP,
+			Port:               161,
+			Version:            g.Version3,
+			SecurityModel:      g.UserSecurityModel,
+			MsgFlags:           msgFlags,
+			Timeout:            time.Duration(30) * time.Second,
+			SecurityParameters: v3Params,
+		}
+
+	case "2c":
+	case "1":
+		return g.GoSNMP{
+			Port:      161,
+			Community: Community,
+			Version:   g.Version2c,
+			Timeout:   time.Duration(2) * time.Second,
+			Retries:   3,
+			MaxOids:   g.MaxOids,
+			Target:    IP,
+		}
+	}
+	return *g.Default
 }
 
 // initConfig reads in config file and ENV variables if set.

@@ -30,7 +30,7 @@ var getCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		target := ParseOIDName(oid)
-		rs, err := snmp.GetOne(snmp.NewSNMP(IP, Community, ParseSNMPVer()), target)
+		rs, err := snmp.GetOne(getSNMPParams(), target)
 		if err != nil {
 			util.HandleError(err)
 			return

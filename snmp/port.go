@@ -125,8 +125,7 @@ func GetPortsStatus(s g.GoSNMP) (ports map[int]*model.Port, err error) {
 }
 
 //GetPortInformation device,communit,index string
-func GetPortInformation(ip, communit, index string, ver g.SnmpVersion) (port *model.Port, err error) {
-	s := NewSNMP(ip, communit, ver)
+func GetPortInformation(s g.GoSNMP, index string) (port *model.Port, err error) {
 	err = s.Connect()
 	if err != nil {
 		return

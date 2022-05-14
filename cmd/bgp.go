@@ -31,7 +31,7 @@ var bgpCmd = &cobra.Command{
 	Short: "Show BGP brief information",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		items, err := snmp.GetBGPPeerTable(snmp.NewSNMP(IP, Community, ParseSNMPVer()))
+		items, err := snmp.GetBGPPeerTable(getSNMPParams())
 		if err != nil {
 			util.HandleError(err)
 		} else {

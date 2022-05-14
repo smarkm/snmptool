@@ -13,7 +13,7 @@ import (
 var local = "127.0.0.1"
 var communit = "public"
 var snmpver = gosnmp.Version2c
-var s = NewSNMP(local, communit, snmpver)
+var s = *gosnmp.Default
 
 func TestSnmpClient_Get(t *testing.T) {
 	// for {
