@@ -53,6 +53,7 @@ var (
 	SecurityLevel   string
 	AuthProtocolStr string
 	PrivProtocolStr string
+	UseDefaulParam  bool
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -83,10 +84,23 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&AuthPass, "authPass", "A", "", "auth password")
 	rootCmd.PersistentFlags().StringVarP(&PrivProtocolStr, "privProtocol", "x", "DES", "privacy protocol (DES|AES)")
 	rootCmd.PersistentFlags().StringVarP(&PrivPass, "privPass", "X", "", "privacy password")
+	rootCmd.PersistentFlags().BoolVarP(&UseDefaulParam, "default", "", false, "use default snmp params, use 'st config' to list items")
 
 }
 
 func getSNMPParams() g.GoSNMP {
+	var p SNMPParams
+	if UseDefaulParam {
+		p = DefaulSNMPParams()
+		snmpver = p.SNMPVersion
+		Community = p.Community
+		SecurityLevel = p.Level
+		UserName = p.Username
+		AuthProtocolStr = p.AuthProtocol
+		AuthPass = p.AuthPass
+		PrivProtocolStr = p.PrivProtocol
+		PrivPass = p.PrivPass
+	}
 	msgFlags := g.AuthPriv
 	authProto := g.MD5
 	privProto := g.DES
@@ -122,16 +136,25 @@ func getSNMPParams() g.GoSNMP {
 			Version:            g.Version3,
 			SecurityModel:      g.UserSecurityModel,
 			MsgFlags:           msgFlags,
-			Timeout:            time.Duration(30) * time.Second,
+			Timeout:            time.Duration(2) * time.Second,
 			SecurityParameters: v3Params,
 		}
 
 	case "2c":
-	case "1":
 		return g.GoSNMP{
 			Port:      161,
 			Community: Community,
 			Version:   g.Version2c,
+			Timeout:   time.Duration(2) * time.Second,
+			Retries:   3,
+			MaxOids:   g.MaxOids,
+			Target:    IP,
+		}
+	case "1":
+		return g.GoSNMP{
+			Port:      161,
+			Community: Community,
+			Version:   g.Version1,
 			Timeout:   time.Duration(2) * time.Second,
 			Retries:   3,
 			MaxOids:   g.MaxOids,
