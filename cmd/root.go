@@ -75,7 +75,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVarP(&IP, "ip", "i", "127.0.0.1", "target ip")
-	rootCmd.Flags().StringVarP(&Community, "community", "c", "public", "community")
+	rootCmd.PersistentFlags().StringVarP(&Community, "community", "c", "public", "community")
 	rootCmd.PersistentFlags().StringVarP(&snmpver, "version", "v", "2c", "snmp version default is '2c'")
 	rootCmd.PersistentFlags().StringVarP(&UserName, "username", "u", "", "username")
 	rootCmd.PersistentFlags().StringVarP(&SecurityLevel, "level", "l", "noAuthNoPriv", "security level (noAuthNoPriv|authNoPriv|authPriv)")
