@@ -55,7 +55,7 @@ var configCmd = &cobra.Command{
 		if addParams {
 			param := SNMPParams{SNMPVersion: snmpver, Community: Community,
 				Username: UserName, Level: SecurityLevel,
-				AuthProtocol: AuthProtocolStr, PrivProtocol: PrivProtocolStr, PrivPass: PrivPass}
+				AuthProtocol: AuthProtocolStr, AuthPass: AuthPass, PrivProtocol: PrivProtocolStr, PrivPass: PrivPass}
 			params = append(params, param)
 			data, _ := json.Marshal(params)
 			ioutil.WriteFile(fileName, data, 0644)
