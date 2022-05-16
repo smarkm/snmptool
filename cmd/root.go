@@ -113,6 +113,7 @@ func getSNMPParams() g.GoSNMP {
 		v3Params.AuthenticationProtocol = authProto
 		v3Params.AuthenticationPassphrase = AuthPass
 	case "authPriv":
+		msgFlags = g.AuthPriv
 		v3Params.AuthenticationProtocol = authProto
 		v3Params.AuthenticationPassphrase = AuthPass
 		v3Params.PrivacyProtocol = privProto
