@@ -10,6 +10,7 @@ import (
 
 //IfTable
 const (
+	IfNumber          = ".1.3.6.1.2.1.2.1.0"
 	IfIndex           = ".1.3.6.1.2.1.2.2.1.1"
 	IfDescr           = ".1.3.6.1.2.1.2.2.1.2"
 	IfType            = ".1.3.6.1.2.1.2.2.1.3"
@@ -32,6 +33,7 @@ const (
 	IfOutErrors       = ".1.3.6.1.2.1.2.2.1.20"
 	IfOutQLen         = ".1.3.6.1.2.1.2.2.1.21"
 	IfSpecific        = ".1.3.6.1.2.1.2.2.1.22"
+	IfName            = ".1.3.6.1.2.1.31.1.1.1.1"
 )
 
 //ipAddrTable
@@ -66,6 +68,8 @@ func init() {
 	OIDs["ifOutErrors"] = IfOutErrors
 	OIDs["ifOutQLen"] = IfOutQLen
 	OIDs["ifSpecific"] = IfSpeed
+	OIDs["ifName"] = IfName
+	OIDs["ifNumber"] = IfNumber
 }
 
 //GetPortsInformation get basic port information
