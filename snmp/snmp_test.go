@@ -2,7 +2,6 @@ package snmp
 
 import (
 	"fmt"
-	"log"
 	"testing"
 
 	"github.com/smarkm/snmptool/snmp/util"
@@ -30,7 +29,7 @@ func TestSnmpClient_Get(t *testing.T) {
 func TestSnmpGetTable(t *testing.T) {
 	oids := []string{IfIndex, IfMtu}
 	tableRows, _ := GetTable(s, oids)
-	log.Println(len(tableRows))
+	fmt.Println(len(tableRows))
 	fmt.Println(len(tableRows))
 }
 func TestGetPortInformation(t *testing.T) {
@@ -40,7 +39,7 @@ func TestGetPortInformation(t *testing.T) {
 func TestGetIPTable(t *testing.T) {
 	ips, err := GetIPTable(s)
 	for index, ip := range ips {
-		log.Println(index, ip, err)
+		fmt.Println(index, ip, err)
 	}
 }
 
@@ -67,13 +66,13 @@ func TestGetIPAddrTable(t *testing.T) {
 }
 
 func TestGetHostName(t *testing.T) {
-	log.Println(GetHostName(s))
+	fmt.Println(GetHostName(s))
 }
 
 func TestGetIPForaordTable(t *testing.T) {
 	items, err := GetIPForwardTable(s)
 	for _, item := range items {
-		log.Println(item)
+		fmt.Println(item)
 	}
 	util.HandleError(err)
 }

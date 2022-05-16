@@ -17,6 +17,7 @@ package cmd
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -59,25 +60,25 @@ var configCmd = &cobra.Command{
 			params = append(params, param)
 			data, _ := json.Marshal(params)
 			ioutil.WriteFile(fileName, data, 0644)
-			log.Println("total ", len(params), " snmp params")
+			fmt.Println("total ", len(params), " snmp params")
 		}
 		if delParams > -1 {
 			nowSize := len(params)
 			if nowSize <= delParams {
-				log.Println("Invalid item index, available index 0~" + strconv.Itoa(nowSize-1))
+				fmt.Println("Invalid item index, available index 0~" + strconv.Itoa(nowSize-1))
 				return
 			}
 			params[delParams] = params[nowSize-1]
 			params = params[:nowSize-1]
 			data, _ := json.Marshal(params)
 			ioutil.WriteFile(fileName, data, 0644)
-			log.Println("success remove one params,remain " + strconv.Itoa(len(params)) + " snmp params")
+			fmt.Println("success remove one params,remain " + strconv.Itoa(len(params)) + " snmp params")
 		}
 
 		if defaultParamIndex > -1 {
 			nowSize := len(params)
 			if nowSize <= defaultParamIndex {
-				log.Println("Invalid item index, available index 0~" + strconv.Itoa(nowSize-1))
+				fmt.Println("Invalid item index, available index 0~" + strconv.Itoa(nowSize-1))
 				return
 			}
 			for i := 0; i < nowSize; i++ {
@@ -89,7 +90,7 @@ var configCmd = &cobra.Command{
 			}
 			data, _ := json.Marshal(params)
 			ioutil.WriteFile(fileName, data, 0644)
-			log.Println("success set default params")
+			fmt.Println("success set default params")
 		}
 
 		if !(addParams || delParams > -1 || defaultParamIndex > -1) {
@@ -101,9 +102,9 @@ var configCmd = &cobra.Command{
 				}
 				switch p.SNMPVersion {
 				case "2c":
-					log.Println("Index: ", i, ",Version: ", p.SNMPVersion, ",Community: "+p.Community, isDefaul)
+					fmt.Println("Index: ", i, ",Version: ", p.SNMPVersion, ",Community: "+p.Community, isDefaul)
 				case "3":
-					log.Println(p)
+					fmt.Println(p)
 				}
 
 			}
